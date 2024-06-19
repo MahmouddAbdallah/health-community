@@ -68,7 +68,7 @@ import PropTypes from 'prop-types'
 import BioInfo from './BioInfo'
 const HeaderProfile = ({ userData }) => {
     // const { user } = UseAppContext()
-
+    // console.log(userData);
     return (
         <div className='flex justify-center px-5'>
             <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px]'>
@@ -79,8 +79,15 @@ const HeaderProfile = ({ userData }) => {
                                 <InputImgFile imgUrl={userData?.picture} />
                             </div>
                             <div className='col-span-12 md:col-span-8'>
-                                <h3 className='text-xl md:text-2xl lg:text-4xl font-bold'>{userData?.name}</h3>
-                                <BioInfo userId={userData?._id} />
+                                <div className='h-full flex flex-col gap-3 justify-between'>
+                                    <div className='space-y-5'>
+                                        <h3 className='text-xl md:text-2xl lg:text-4xl font-bold'>{userData?.name}</h3>
+                                        <BioInfo userId={userData?._id} specialization={userData?.specialization} />
+                                    </div>
+                                    <button className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
+                                        Book appointment
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
