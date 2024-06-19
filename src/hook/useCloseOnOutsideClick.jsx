@@ -1,16 +1,18 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function useCloseOnOutsideClick(onClose) {
     const ref = useRef()
-    const handleClickOutside = useCallback((event) => {
+    const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
             onClose();
         }
-    }, [onClose, ref])
+    }
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [handleClickOutside]);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, []);
     return ref
 }
 

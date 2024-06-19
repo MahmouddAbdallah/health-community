@@ -1,31 +1,10 @@
 import PropTypes from 'prop-types'
-import { useCallback, useEffect, useState } from 'react'
-import axios from 'axios'
-// import toast from 'react-hot-toast'
 import { ExperienceIcon, FacebookIcon, InstaIcon, LocationIcon, TwitterIcon } from '../../../components/icons'
 import { Link } from 'react-router-dom'
+import { LinkedinIcon } from 'lucide-react'
 
-const BioInfo = ({ userId, specialization }) => {
-    const [bio, setBio] = useState(null)
+const BioInfo = ({ specialization, bio }) => {
 
-    const fetchBioOfUser = useCallback(
-        async () => {
-            try {
-                const { data } = await axios.get(`/api/bio/${userId}`)
-                setBio(data.bio)
-            } catch (error) {
-                // toast.error(error?.response?.data?.message || 'There is an Error')
-                // setLoading(false)
-                console.error(error);
-            }
-        }, [userId]
-    )
-    useEffect(() => {
-        if (!bio) {
-            fetchBioOfUser()
-        }
-    }, [bio, fetchBioOfUser])
-    console.log(bio)
     const platforms = [
         {
             icon: <div className='w-10 h-10 flex items-center justify-center bg-blue-600 rounded-full'>
@@ -45,17 +24,22 @@ const BioInfo = ({ userId, specialization }) => {
             </div>,
             name: "x",
         },
-
+        {
+            icon: <div className='w-10 h-10 flex items-center justify-center bg-blue-500 rounded-full'>
+                <LinkedinIcon className={'stroke-white-White fill-white-White w-5 h-5'} />
+            </div>,
+            name: "linked in",
+        },
     ]
     return (
         <div className='mt-2'>
             <div className='space-y-2'>
                 <div className='space-y-2'>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-start gap-3'>
                         <ExperienceIcon className={'w-7 h-7 fill-black-black'} />
                         {bio?.experience}
                     </div>
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-start gap-3'>
                         <LocationIcon className={'w-7 h-7 fill-black-black stroke-none'} />
                         {bio?.location}
                     </div>
@@ -67,7 +51,7 @@ const BioInfo = ({ userId, specialization }) => {
                     <div className='flex gap-3'>
                         {bio?.socialMedia.map((item) => {
                             return (
-                                <Link hrefLang='en' target='_blank' to={item.link.startsWith("www.") || item.link.startsWith('http') ? item.link : "https://www." + item?.link} key={item?.platform} className='block'>
+                                <Link hrefLang='en' target='_blank' to={item.link.startsWith("www.") || item.link.startsWith('http') ? item.link : "https://www." + item?.link} key={item?._id} className='block'>
                                     {
                                         platforms.find((platform) => platform.name === item.platform)?.icon
                                     }
@@ -83,7 +67,8 @@ const BioInfo = ({ userId, specialization }) => {
 
 BioInfo.propTypes = {
     userId: PropTypes.string,
-    specialization: PropTypes.string
+    specialization: PropTypes.string,
+    bio: PropTypes.any
 }
 
 export default BioInfo

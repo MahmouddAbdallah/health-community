@@ -55,11 +55,11 @@ const InputImgFile = ({ imgUrl }) => {
     }, [])
 
     return (
-        <div>
-            <div className="relative flex justify-center items-center group duration-200">
+        <div className='w-full h-full'>
+            <div className="w-full h-full relative flex justify-center items-center group duration-200">
                 <img
                     src={imgUrl ? (img ? img : imgUrl) : '../person.jpg'}
-                    className='rounded-xl'
+                    className='rounded-xl h-full w-full object-cover'
                     alt="" />
                 {loading ?
                     <div className='absolute w-full h-full flex justify-center rounded-xl items-center'>

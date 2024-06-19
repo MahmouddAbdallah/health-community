@@ -5,15 +5,16 @@ import { PersonIcon } from '../components/icons'
 import { LogOutIcon } from '../components/icons'
 import useCloseOnOutsideClick from '../hook/useCloseOnOutsideClick'
 import clsx from 'clsx'
+import { UseAppContext } from '../context/AppContext'
 
-const UserNavbar = ({ user, isMenu, setOpen }) => {
+const UserNavbar = ({ isMenu, close }) => {
     const [openUser, setOpenUser] = useState(false);
-
+    const { user } = UseAppContext()
     const userRef = useCloseOnOutsideClick(() => { setOpenUser(false) })
     return (
         <>
             {user ?
-                <li ref={userRef} className={clsx(
+                <div ref={userRef} className={clsx(
                     `relative min-w-[150px] flex justify-center`,
                     { 'flex-col border-b': isMenu }
                 )}>
@@ -37,7 +38,7 @@ const UserNavbar = ({ user, isMenu, setOpen }) => {
                             )}>
                                 <li>
                                     <Link onClick={() => {
-                                        setOpen(false)
+                                        close()
                                         setOpenUser(false)
                                         document.body.style.overflowY = 'auto'
                                     }} to={`/profile/${user._id}`} >
@@ -56,7 +57,7 @@ const UserNavbar = ({ user, isMenu, setOpen }) => {
                                     { 'border-t': isMenu }
                                 )}>
                                     <Link to={'/sign-in'} onClick={() => {
-                                        setOpen(false)
+                                        close()
                                         setOpenUser(false)
                                         document.body.style.overflowY = 'auto'
                                     }}
@@ -75,7 +76,7 @@ const UserNavbar = ({ user, isMenu, setOpen }) => {
                             </ul>
                         </div>
                     }
-                </li>
+                </div>
                 :
                 <li>{user && <div className=" w-44 h-7 rounded-md bg-slate-200 dark:bg-gray-500 animate-pulse" />}</li>
             }
@@ -84,9 +85,8 @@ const UserNavbar = ({ user, isMenu, setOpen }) => {
 }
 
 UserNavbar.propTypes = {
-    user: PropTypes.object.isRequired,
     isMenu: PropTypes.bool,
-    setOpen: PropTypes.any
+    close: PropTypes.any
 }
 
 export default UserNavbar
