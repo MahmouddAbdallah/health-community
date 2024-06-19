@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  overflow-x: hidden;
+}
+.slow{
+  animation: slow ease-in .25s;
+}
+.gradient-blue{
+  background: linear-gradient(140deg, rgba(232, 232, 232, 0.32) 1.8%, rgba(101, 207, 233, 0.10) 90.75%);
+}
+.pcontainer{
+  @apply px-4 sm:px-3 md:px-5 lg:px-10 xl:px-20
+}
+@keyframes slow {
+    0% {
+    opacity: 5%;
+  }
+    100% {
+    opacity: 100%;
+  }
+}
