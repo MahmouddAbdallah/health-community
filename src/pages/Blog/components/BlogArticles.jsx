@@ -22,9 +22,9 @@ const BlogArticles = () => {
     }
     return (
         <div className="pcontainer py-10 space-y-10">
-            <h4 className="md:text-2xl lg:text-3xl font-medium">Read some Articles</h4>
+            <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">Read some Articles</h4>
             <div>
-                <div className="grid grid-cols-12 md:gap-5 lg:gap-14">
+                <div className="grid grid-cols-12 space-y-10 md:space-y-0 md:gap-5 lg:gap-14">
                     {
                         articles?.map(((item, index) => {
                             return (

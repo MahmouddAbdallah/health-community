@@ -46,7 +46,6 @@ const Navbar = ({ inderbg }) => {
             'flex justify-between items-center py-5 pcontainer top-0 md:static',
             { "sticky z-10": open },
             { "border-b": !inderbg },
-            { "text-white-White": inderbg },
         )}>
             <Link to={'/'}>
                 <div>
@@ -60,14 +59,21 @@ const Navbar = ({ inderbg }) => {
             <div className="hidden md:flex gap-10">
                 <ul className="flex items-center gap-3 md:gap-4 lg:gap-5 ">
                     {navBarItem.map(item =>
-                        <li key={item.name} className="duration-300 ease-in-out ">
+                        <li key={item.name} className={clsx(
+                            "duration-300 ease-in-out ",
+                            { "text-white-White": inderbg },
+                        )}>
                             <Link className=" text-base lg:text-lg" to={item.href}>
                                 {item.name}
                             </Link>
                         </li>
                     )}
                     {user ?
-                        <UserNavbar user={user} />
+                        <div className={clsx(
+                            { "text-white-White": inderbg },
+                        )}>
+                            <UserNavbar user={user} />
+                        </div>
                         :
                         <li className={`space-x-5 block`}>
                             <button className="px-6 py-[6px] text-white-White font-semibold bg-red-500 rounded-lg shadow-lg hover:scale-105 duration-200 hover:drop-shadow-2xl hover:shadow-pink-200 hover:cursor-pointer"
@@ -87,9 +93,12 @@ const Navbar = ({ inderbg }) => {
                     setOpen(!open)
                     document.body.style.overflowY = 'hidden'
                 }} >
-                    <MenuIcon className={'w-7 h-7'} />
+                    <MenuIcon className={clsx(
+                        'w-7 h-7',
+                        { "fill-white-White": inderbg },
+                    )} />
                 </button>
-                <div className={`duration-200 ${open ? 'text-black-black border-l-2 bg-white-White flex translate-x-0' : "translate-x-[100%] "} pb-32  flex-col justify-between items-center gap-5 fixed right-0 h-screen top-0 w-72 bg-white-Light_Gray dark:bg-gray-800`}>
+                <div className={`duration-200 ${open ? 'text-black-black border-l-2 bg-white-White rtl' : "ltr"} pb-32 flex-col justify-between items-center gap-5 fixed right-0 h-screen top-0 w-72 bg-white-Light_Gray dark:bg-gray-800`}>
                     <ul className=" md:flex items-center gap-3 md:gap-4 lg:gap-5 w-full">
                         <div className='w-full flex justify-center py-5 border-b'>
                             <img src={LogoWithoutText} alt='' />

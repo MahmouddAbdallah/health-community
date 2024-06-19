@@ -1,5 +1,4 @@
 import { StarIcon } from '../components/icons'
-import test1 from '../assets/test1.png'
 const Testimonies = () => {
     return (
         <div className="pcontainer flex flex-col gap-10 lg:grid lg:grid-cols-12 text-DARKCOLOR py-[100px]">
@@ -15,7 +14,9 @@ const Testimonies = () => {
                 <div className='gradient-blue px-3 py-5 rounded-[18px]'>
                     <div className='flex gap-3'>
                         <div className='w-24 h-24 rounded-full border border-black-black/20'>
-                            <img className='w-24 h-24 rounded-full object-cover' src={test1} alt="" />
+                            <div className='w-24 h-24 flex items-center justify-center bg-blue-500 font-bold text-white-White rounded-full object-cover' >
+                                MA
+                            </div>
                         </div>
                         <div>
                             <h3 className='text-xl font-bold'>Mahmoud Mohamed</h3>
@@ -23,7 +24,10 @@ const Testimonies = () => {
                         </div>
                     </div>
                     <div className=' space-y-3 mt-5'>
-                        <div>
+                        <div className='flex gap-1'>
+                            <StarIcon className={'fill-[#FFC106]'} />
+                            <StarIcon className={'fill-[#FFC106]'} />
+                            <StarIcon className={'fill-[#FFC106]'} />
                             <StarIcon className={'fill-[#FFC106]'} />
                         </div>
                         <div>

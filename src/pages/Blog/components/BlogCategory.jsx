@@ -19,7 +19,7 @@ const BlogCategory = () => {
     }, [categories])
     return (
         <div className="pcontainer py-20 space-y-10 bg-black-black/5">
-            <h4 className="md:text-2xl lg:text-3xl font-medium">Categories</h4>
+            <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">Categories</h4>
             <div className="flex">
                 {
                     categories?.map(item => {

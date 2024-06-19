@@ -1,5 +1,5 @@
 // import PropTypes from 'prop-types'
-// import InputImgFile from '../../../components/InputImgFile'
+import InputImgFile from '../../../components/InputImgFile'
 // import { UseAppContext } from '../../../context/AppContext'
 // import ImgOrAva from '../../../components/ImgOrAva'
 // const HeaderProfile = ({ userData }) => {
@@ -70,16 +70,13 @@ const HeaderProfile = ({ userData }) => {
     // const { user } = UseAppContext()
 
     return (
-        <div className='flex justify-center'>
-            <div className='md:w-[768px] lg:w-[900px] xl:w-[1000px]'>
-                <div className='py-10'>
+        <div className='flex justify-center px-5'>
+            <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px]'>
+                <div className=' w-full py-10'>
                     <div className='p-5 rounded-lg border-2'>
-                        <div className='grid grid-cols-12 gap-10'>
+                        <div className='w-full grid grid-cols-12 space-y-10 md:space-y-0 md:gap-10'>
                             <div className='col-span-12 md:col-span-4'>
-                                <img
-                                    src={userData?.picture}
-                                    className='rounded-xl'
-                                    alt="" />
+                                <InputImgFile imgUrl={userData?.picture} />
                             </div>
                             <div className='col-span-12 md:col-span-8'>
                                 <h3 className='text-xl md:text-2xl lg:text-4xl font-bold'>{userData?.name}</h3>

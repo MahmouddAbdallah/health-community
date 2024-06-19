@@ -19,7 +19,7 @@ const UserNavbar = ({ user, isMenu, setOpen }) => {
                 )}>
                     <button onClick={() => { setOpenUser(!openUser) }} className="cursor-pointer" >
                         <div className="flex items-center justify-center md:justify-normal px-2 py-3 md:py-1 gap-2 hover:bg-black-black/10  duration-300 rounded-md">
-                            <div className="">
+                            <div className="font-medium" >
                                 {user.name}
                             </div>
                             <div className=" h-7 w-7 bg-white-White rounded-md overflow-hidden">

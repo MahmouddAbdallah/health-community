@@ -33,9 +33,9 @@ const FAQs = () => {
         },
     ]
     return (
-        <div className="grid grid-cols-12 gap-14 bg-white-Snow_White">
+        <div className="grid grid-cols-12 bg-white-Snow_White pb-10 md:pb-0">
             <div className="col-span-12 lg:col-span-6 pl-4 sm:px-3 md:px-5 lg:pl-10 xl:pl-20  pt-20">
-                <div className=" space-y-4 mb-20">
+                <div className=" space-y-4 mb-10">
                     <p className='font-semibold text-primary-blue'>FAQs</p>
                     <h3 className="text-3xl lg:text-5xl font-bold">Still Have Any Questions?</h3>
                     <p className="opacity-50">
@@ -43,12 +43,12 @@ const FAQs = () => {
                     </p>
                 </div>
                 <div>
-                    <div>
+                    <div className=''>
                         {faqsData.map((item) =>
                             <div key={item.q} className='border-b border-[rgba(0,0,0,0.20)] pb-3'>
                                 <div onClick={() => { setToggle((prev) => { if (prev == item.q) { return false } return item.q }) }}
                                     className='flex items-center justify-between py-3 cursor-pointer'>
-                                    <h4 className='text-2xl font-bold'>{item.q}</h4>
+                                    <h4 className='text-lg md:text-2xl font-bold'>{item.q}</h4>
                                     <div>
                                         {toggle == item.q ? <ArrowUpIcon /> : <ArrowDownIcon />}
                                     </div>

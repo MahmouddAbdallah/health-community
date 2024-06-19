@@ -1,5 +1,6 @@
 import { FeadbackIcon, GroupIcon, ImprovementIcon, PersonRunIcon } from '../components/icons'
 import Person from '../assets/person.png'
+import section2 from '../assets/section2.png'
 const Section2 = () => {
     const dataSection = [
         {
@@ -34,7 +35,10 @@ const Section2 = () => {
                     </button>
                 </div>
             </div>
-            <div className="lg:col-span-6 flex justify-center">
+            <div className='block md:hidden'>
+                <img src={section2} alt="" />
+            </div>
+            <div className="hidden md:flex lg:col-span-6 justify-center">
                 <div className='gradient-blue relative w-full ml-10  sm:ml-0 h-[350px] sm:w-[600px] sm:h-[550px]  rounded-xl'>
                     <div className='-top-10 -left-14 sm:-top-12 sm:-left-24 absolute'>
                         <img src={Person} alt="" className='max-w-[215px] sm:max-w-[330px]' />

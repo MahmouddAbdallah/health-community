@@ -40,7 +40,7 @@ const SignIn = () => {
                 </div>
                 <div className=''>
                     <form onSubmit={onSubmit} >
-                        <div className='bg-white-White p-14 w-[350px] sm:w-[450px] md:w-[500px] space-y-5'>
+                        <div className='bg-white-White p-5 md:p-14 w-[350px] sm:w-[450px] md:w-[500px] space-y-5'>
                             <div className='space-y-3'>
                                 <h3 className='text-4xl font-bold'>Sign In</h3>
                                 <div>

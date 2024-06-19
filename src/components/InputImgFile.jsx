@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
+import { useEffect, useRef, useState } from 'react'
 import { CameraIcon } from './icons'
 import { Spinner } from '../components/icons';
-import ImgOrAva from './ImgOrAva';
+// import ImgOrAva from './ImgOrAva';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { UseAppContext } from '../context/AppContext';
 
-const InputImgFile = () => {
+const InputImgFile = ({ imgUrl }) => {
     const [img, setImg] = useState('')
     const [imgFile, setImgFile] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -15,27 +16,25 @@ const InputImgFile = () => {
     const btnRef = useRef();
     const [open, setOpen] = useState(false)
 
-    const uploadImg = useCallback(
-        async () => {
-            try {
-                setOpen(false)
-                document.body.style.overflow = 'auto'
-                setLoading(true)
-                const formData = new FormData()
-                formData.append('picture', imgFile);
-                const { data } = await axios.put(`/api/${user.role}`, formData)
-                setUser((prev) => ({ ...prev, picture: data.user.picture }))
-                setLoading(false)
-                URL.revokeObjectURL(img)
-                setImg("")
-                setImgFile(null)
-            } catch (error) {
-                toast.error(error?.response?.data?.message || 'There is an Error')
-                setLoading(false)
-                console.error(error);
-            }
-        }, [img, imgFile, setUser, user.role]
-    )
+    const uploadImg = async () => {
+        try {
+            setOpen(false)
+            document.body.style.overflow = 'auto'
+            setLoading(true)
+            const formData = new FormData()
+            formData.append('picture', imgFile);
+            const { data } = await axios.put(`/api/${user.role}`, formData)
+            setUser((prev) => ({ ...prev, picture: data.user.picture }))
+            setLoading(false)
+            URL.revokeObjectURL(img)
+            setImg("")
+            setImgFile(null)
+        } catch (error) {
+            toast.error(error?.response?.data?.message || 'There is an Error')
+            setLoading(false)
+            console.error(error);
+        }
+    }
 
     useEffect(() => {
         if (img) {
@@ -58,18 +57,16 @@ const InputImgFile = () => {
     return (
         <div>
             <div className="relative flex justify-center items-center group duration-200">
-                <ImgOrAva
-                    className={'w-40 h-40 text-2xl'}
-                    img={img ? img : user.picture}
-                    name={user.name}
-                    color={'bg-blue-400'}
-                />
+                <img
+                    src={imgUrl ? (img ? img : imgUrl) : '../person.jpg'}
+                    className='rounded-xl'
+                    alt="" />
                 {loading ?
-                    <div className='absolute w-full h-full rounded-full flex justify-center items-center'>
+                    <div className='absolute w-full h-full flex justify-center rounded-xl items-center'>
                         <Spinner className={'animate-spin stroke-white-White fill-transparent w-10 h-10'} />
                     </div>
                     :
-                    <div className={"absolute invisible group-hover:visible w-full h-full rounded-full bg-gray-800/20"}>
+                    <div className={"absolute invisible group-hover:visible rounded-xl w-full h-full bg-gray-800/20"}>
                         <button onClick={() => {
                             setOpen(true)
                             document.body.style.overflow = 'hidden'
@@ -108,6 +105,10 @@ const InputImgFile = () => {
             </div>
         </div>
     )
+}
+
+InputImgFile.propTypes = {
+    imgUrl: PropTypes.string
 }
 
 export default InputImgFile

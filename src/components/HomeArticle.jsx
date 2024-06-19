@@ -18,7 +18,7 @@ const HomeArticle = () => {
     }
     return (
         <div className="bg-[#F5F5F5] pcontainer py-10">
-            <h4 className="md:text-2xl lg:text-3xl font-medium">Read some Articles</h4>
+            <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">Read some Articles</h4>
             <div className=" py-10 min-h-[80vh]">
                 {data &&
                     <div className="grid grid-cols-12 gap-10">
@@ -45,7 +45,7 @@ const HomeArticle = () => {
                             </Link>
                         </div>
                         <div className="col-span-12 lg:col-span-6">
-                            <div className="grid grid-cols-12 gap-5">
+                            <div className="grid grid-cols-12 space-y-10 md:space-y-0 md:gap-5">
                                 {
                                     data?.articles?.map(((item, index) => {
                                         return (
