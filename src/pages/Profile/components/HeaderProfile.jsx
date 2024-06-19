@@ -5,11 +5,13 @@ import BioInfo from './BioInfo';
 import UpdateBio from './UpdateBio';
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
+import BookingAppointment from './BookingAppointment';
 
 const HeaderProfile = ({ userData }) => {
     const { user } = UseAppContext()
     const [open, setOpen] = useState(false)
     const [bio, setBio] = useState(null)
+    const [openAppointment, setOpenAppointment] = useState(false)
 
     const fetchBioOfUser = useCallback(
         async () => {
@@ -57,7 +59,12 @@ const HeaderProfile = ({ userData }) => {
                                 </div>
                                 <BioInfo bio={bio} specialization={userData?.specialization} />
                             </div>
-                            <button className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
+                            <button
+                                onClick={() => {
+                                    setOpenAppointment(!openAppointment)
+                                    document.body.style.overflow = "hidden"
+                                }}
+                                className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
                                 Book appointment
                             </button>
                         </div>
@@ -80,6 +87,7 @@ const HeaderProfile = ({ userData }) => {
                 </div>
             </div>
             {open && <UpdateBio setOpen={setOpen} bio={bio} setBio={setBio} />}
+            {openAppointment && <BookingAppointment setOpen={setOpenAppointment} doctorId={userData?.role == 'doctor' ? userData._id : ""} />}
         </div >
     )
 }
