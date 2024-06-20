@@ -59,6 +59,7 @@ const Navbar = ({ inderbg }) => {
             <div className="block md:hidden ">
                 <button onClick={() => {
                     setOpen(!open)
+                    document.body.style.overflowY = 'hidden'
                 }} >
                     <MenuIcon className={clsx(
                         'w-7 h-7',

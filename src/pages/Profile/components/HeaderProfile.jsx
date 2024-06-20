@@ -16,8 +16,10 @@ const HeaderProfile = ({ userData }) => {
     const fetchBioOfUser = useCallback(
         async () => {
             try {
-                const { data } = await axios.get(`/api/bio/${userData?._id}`)
-                setBio(data.bio)
+                if (userData?._id) {
+                    const { data } = await axios.get(`/api/bio/${userData?._id}`)
+                    setBio(data.bio)
+                }
             } catch (error) {
                 console.error(error);
             }
@@ -30,8 +32,16 @@ const HeaderProfile = ({ userData }) => {
     }, [bio, fetchBioOfUser])
 
     return (
-        <div className='flex justify-center px-5'>
-            <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10 relative'>
+        <div className='flex flex-col items-center px-5'>
+            <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10'>
+                <div className="p-3 space-x-2">
+                    <div className='flex items-center justify-between'>
+                        <p className='font-medium'>100 Following</p>
+                        <button className='font-medium text-blue-500'>Follow</button>
+                    </div>
+                </div>
+            </div>
+            <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 relative'>
                 <div className='w-full grid grid-cols-12 p-5  space-y-5 md:space-y-0 md:gap-10'>
                     <div className='col-span-12 md:col-span-4'>
                         <InputImgFile imgUrl={userData?.picture} />
@@ -50,8 +60,8 @@ const HeaderProfile = ({ userData }) => {
                                                     document.body.style.overflow = "hidden"
                                                 }}
                                                 className='flex gap-[3px]'>
-                                                {Array(3).fill().map(_ =>
-                                                    <div key={_} className='w-[6px] h-[6px] bg-black-black/80 rounded-full' />
+                                                {Array(3).fill().map((_, i) =>
+                                                    <div key={i} className='w-[6px] h-[6px] bg-black-black/80 rounded-full' />
                                                 )}
                                             </button>
                                         }
@@ -59,14 +69,25 @@ const HeaderProfile = ({ userData }) => {
                                 </div>
                                 <BioInfo bio={bio} specialization={userData?.specialization} />
                             </div>
-                            <button
-                                onClick={() => {
-                                    setOpenAppointment(!openAppointment)
-                                    document.body.style.overflow = "hidden"
-                                }}
-                                className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
-                                Book appointment
-                            </button>
+                            <div className='flex gap-3'>
+                                <button
+                                    key={'btn'}
+                                    onClick={() => {
+                                        setOpenAppointment(!openAppointment)
+                                        document.body.style.overflow = "hidden"
+                                    }}
+                                    className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
+                                    Book appointment
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setOpenAppointment(!openAppointment)
+                                        document.body.style.overflow = "hidden"
+                                    }}
+                                    className='bg-black-black w-fit px-5 py-2 text-white-White rounded-full'>
+                                    Message
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,11 +100,21 @@ const HeaderProfile = ({ userData }) => {
                                 document.body.style.overflow = "hidden"
                             }}
                             className='flex gap-[3px]'>
-                            {Array(3).fill().map(_ =>
-                                <div key={_} className='w-[6px] h-[6px] bg-black-black/80 rounded-full' />
+                            {Array(3).fill().map((_, i) =>
+                                <div key={i} className='w-[6px] h-[6px] bg-black-black/80 rounded-full' />
                             )}
                         </button>
                     }
+                </div>
+            </div>
+            <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10 relative'>
+                <div className="p-3">
+                    <span className="font-medium text-lg block">
+                        About me:
+                    </span>
+                    <span className=''>
+                        {bio?.aboutme}
+                    </span>
                 </div>
             </div>
             {open && <UpdateBio setOpen={setOpen} bio={bio} setBio={setBio} />}
