@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types'
 import { Spinner } from '../../../components/icons';
+import ShowCertification from './ShowCertification';
+import { useSearchParams } from 'react-router-dom'
 
 
 const Certification = ({ userData }) => {
@@ -11,6 +13,8 @@ const Certification = ({ userData }) => {
     const [imageSelect, setImageSelect] = useState([]);
     const [loading, setLoading] = useState(false);
     const [cer, setCer] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams();
+    const indexImg = searchParams.get('index')
 
     const inputFileRef = useRef();
     const btnRef = useRef()
@@ -59,6 +63,7 @@ const Certification = ({ userData }) => {
     const fetchCertification = useCallback(
         async () => {
             try {
+                if (!userData?._id) return ""
                 const { data } = await axios.get(`/api/certification/${userData?._id}`)
                 setCer(data.certification.imgs)
             } catch (error) {
@@ -67,8 +72,11 @@ const Certification = ({ userData }) => {
         }, [userData]
     )
     useEffect(() => {
-        fetchCertification()
+        if (!cer.length) {
+            fetchCertification()
+        }
     }, [fetchCertification])
+
     return (
         <div className='flex flex-col items-center px-5'>
             <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10'>
@@ -87,10 +95,13 @@ const Certification = ({ userData }) => {
                             </button>
                         }
                         {
-                            cer?.map(item =>
-                                <div key={item} className='h-52 w-52 rounded-lg' >
+                            cer?.map((item, i) =>
+                                <button onClick={() => {
+                                    setSearchParams(`index=${i}`)
+                                    document.body.style.overflow = 'hidden'
+                                }} key={item} className='h-52 w-52 rounded-lg' >
                                     <img src={item} className='w-full h-full object-cover border' alt="" />
-                                </div>
+                                </button>
                             )
                         }
                         {images.map((item, i) => {
@@ -117,6 +128,9 @@ const Certification = ({ userData }) => {
                     </div>
                 </div>
             </div>
+            {(indexImg || indexImg == 0) &&
+                <ShowCertification indexImg={indexImg} imgs={cer} />
+            }
         </div >
     )
 }
@@ -124,50 +138,3 @@ Certification.propTypes = {
     userData: PropTypes.object
 }
 export default Certification
-// import { PlusIcon } from 'lucide-react'
-// import { useState } from 'react';
-// const Certification = () => {
-//     const [images, setImages] = useState([]);
-//     const [imageSelect, setImageSelect] = useState([]);
-
-//     const handleImagesFile = (e) => {
-//         const files = e.target.files;
-//         if (files) {
-//             console.log(files);
-//             for (let i = 0; i < files.length; i++) {
-//                 const reader = new FileReader();
-//                 reader.onload = (event) => {
-//                     if (event.target && event.target.result) {
-//                         setImages((prev) => [...prev, event.target.result])
-//                     }
-//                     setImageSelect((prev) => { return [...prev, files[i]] })
-//                 };
-//                 reader.readAsDataURL(files[i]);
-//             }
-//         }
-//     };
-//     console.log(images);
-//     return (
-//         <div className='flex flex-col items-center px-5'>
-//             <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10'>
-//                 <div className="p-3 space-y-2">
-//                     <p className='font-medium'>Certification</p>
-//                     <div>
-//                         <button className='flex justify-center items-center h-52 w-52 bg-black-black/5'>
-//                             {/* <PlusIcon /> */}
-//                             <input multiple type="file" onChange={handleImagesFile} />
-//                         </button>
-
-//                     </div>
-//                     {images.map(item => {
-//                         return (
-//                             <img src={item} alt="" />
-//                         )
-//                     })}
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Certification

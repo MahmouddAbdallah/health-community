@@ -6,7 +6,7 @@ const ImgOrAva = ({ className, img, name, color }) => {
         <div className={`overflow-hidden rounded-full ${className}`}>
             {
                 img ?
-                    <img className="w-full h-full" src={img} alt="ava" />
+                    <img className="w-full h-full object-cover" src={img} alt="ava" />
                     :
                     <div className={`w-full h-full ${color ? color : "bg-blue-500"} border flex items-center justify-center text-white-White font-semibold rounded-full`}>
                         {name?.charAt(0)}

@@ -13,9 +13,9 @@ const MenuNavbar = ({ navbarItem, open, setOpen }) => {
     const { user } = UseAppContext()
 
     return (
-        <div className={`duration-200 text-black-black border-l-2  ${open ? ' rtl z-50' : "ltr"} pb-32 flex-col justify-between items-center gap-5 fixed right-0 h-svh top-0 w-72 bg-white-Light_Gray dark:bg-gray-800`}>
-            <div onClick={close} className="fixed h-full w-full top-0 left-0 bg-black-black/5" />
-            <ul className=" md:flex items-center gap-3 md:gap-4 lg:gap-5 w-full z-50">
+        <div className={` fixed right-0 top-0 w-72  text-black-black border-l-2 ${open ? ' rtl z-50' : "ltr"} pb-32 `}>
+            {open && <div onClick={close} className="fixed h-full w-full top-0 left-0 bg-black-black/30" />}
+            <ul className=" md:flex items-center gap-3 md:gap-4 lg:gap-5 w-full z-50 bg-white-Light_Gray h-svh">
                 <div className='w-full flex justify-center py-5 border-b'>
                     <img src={LogoWithoutText} alt='' />
                 </div>

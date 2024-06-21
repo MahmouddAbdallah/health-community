@@ -319,3 +319,12 @@ export const TwitterIcon = ({ className }) => {
 TwitterIcon.propTypes = {
     className: PropTypes.string
 }
+export const ThreeDotsIcon = () => {
+    return (
+        <div className='flex gap-[3px]'>
+            {Array(3).fill().map((_, i) =>
+                <div key={i} className='w-[6px] h-[6px] bg-black-black/80 rounded-full' />
+            )}
+        </div>
+    )
+}

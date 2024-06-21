@@ -83,7 +83,7 @@ const InputImgFile = ({ imgUrl }) => {
                     </div>
                 }
             </div>
-            <div className={`fixed w-full h-full top-0 left-0 bg-gray-900/30 ${open ? 'flex' : "hidden"} items-center justify-center px-5 `}>
+            <div className={`fixed w-full h-full top-0 left-0 bg-gray-900/30 ${open ? 'flex' : "hidden"} items-center justify-center px-5 z-50`}>
                 <div onClick={() => {
                     setOpen(false)
                     document.body.style.overflow = 'auto'

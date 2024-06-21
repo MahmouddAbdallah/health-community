@@ -6,6 +6,7 @@ import UpdateBio from './UpdateBio';
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import BookingAppointment from './BookingAppointment';
+import { ThreeDotsIcon } from '../../../components/icons';
 
 const HeaderProfile = ({ userData }) => {
     const { user } = UseAppContext()
@@ -60,9 +61,7 @@ const HeaderProfile = ({ userData }) => {
                                                     document.body.style.overflow = "hidden"
                                                 }}
                                                 className='flex gap-[3px]'>
-                                                {Array(3).fill().map((_, i) =>
-                                                    <div key={i} className='w-[6px] h-[6px] bg-black-black/80 rounded-full' />
-                                                )}
+                                                <ThreeDotsIcon />
                                             </button>
                                         }
                                     </div>
@@ -98,11 +97,8 @@ const HeaderProfile = ({ userData }) => {
                             onClick={() => {
                                 setOpen(!open)
                                 document.body.style.overflow = "hidden"
-                            }}
-                            className='flex gap-[3px]'>
-                            {Array(3).fill().map((_, i) =>
-                                <div key={i} className='w-[6px] h-[6px] bg-black-black/80 rounded-full' />
-                            )}
+                            }}>
+                            <ThreeDotsIcon />
                         </button>
                     }
                 </div>

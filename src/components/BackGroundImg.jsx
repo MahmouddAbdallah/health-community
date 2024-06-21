@@ -16,7 +16,7 @@ const BackGroundImg = ({ children, bg }) => {
 }
 
 BackGroundImg.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.any,
     bg: PropTypes.any
 }
 

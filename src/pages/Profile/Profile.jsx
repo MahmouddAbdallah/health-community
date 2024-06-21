@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Certification from "./components/Certification";
+import Articles from "./components/Articles";
 const Profile = () => {
     // const [loading, setLoading] = useState(false)
     const [userData, setUserData] = useState(null)
@@ -36,6 +37,7 @@ const Profile = () => {
             <div className={` pb-10 px-2 sm:px-3 md:px-5 lg:px-10 xl:px-20 dark:text-white-White min-h-screen`}>
                 <HeaderProfile userData={userData} />
                 <Certification userData={userData} />
+                <Articles userData={userData} />
             </div>
         </div>
     )
