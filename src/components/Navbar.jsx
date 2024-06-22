@@ -16,8 +16,9 @@ const Navbar = ({ inderbg }) => {
 
     return (
         <nav className={clsx(
-            'flex justify-between items-center py-5 pcontainer top-0 md:static',
+            'flex justify-between items-center py-5 top-0 md:static',
             { "border-b": !inderbg },
+            { "pcontainer": !inderbg },
         )}>
             <Link to={'/'}>
                 <div>
@@ -45,11 +46,11 @@ const Navbar = ({ inderbg }) => {
                             <UserNavbar />
                         </li>
                         :
-                        <li className={`space-x-5 block`}>
-                            <Link to={'sign-up'} className="px-6 py-2 text-white-White font-semibold bg-red-500 rounded-lg shadow-lg hover:scale-105 duration-200 hover:drop-shadow-2xl hover:shadow-pink-200 hover:cursor-pointer">
+                        <li className={`flex gap-5`}>
+                            <Link to={'/sign-up'} className="block px-6 md:px-2 md:text-sm lg:px-6 lg:text-base py-2 text-white-White font-semibold bg-red-500 rounded-lg shadow-lg hover:scale-105 duration-200 hover:drop-shadow-2xl hover:shadow-pink-200 hover:cursor-pointer">
                                 Sign up
                             </Link>
-                            <Link to={'sign-in'} className="px-6 py-2 text-white-White font-semibold bg-black-black rounded-lg shadow-lg hover:scale-105 duration-200 hover:drop-shadow-2xl hover:shadow-[#7dd3fc] hover:cursor-pointer dark:bg-white-White dark:text-black-black">
+                            <Link to={'/sign-in'} className="block px-5 md:px-2 md:text-sm lg:px-6 lg:text-base py-2 text-white-White font-semibold bg-black-black rounded-lg shadow-lg hover:scale-105 duration-200 hover:drop-shadow-2xl hover:shadow-[#7dd3fc]  ">
                                 Sign In
                             </Link>
                         </li>

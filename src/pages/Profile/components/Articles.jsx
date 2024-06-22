@@ -43,49 +43,54 @@ const Articles = ({ userData }) => {
                             <PlusIcon />
                         </button>
                     </div>
-                    <div className='grid grid-cols-12'>
-                        {articles.length > 0 ? (articles.map((article, index) => (
-                            <div key={index} className="col-span-12 md:col-span-6 lg:col-span-4 space-y-2">
-                                <div className='flex relative group duration-300'>
-                                    <div className='space-y-3'>
-                                        <img src={article.img} alt="" className="w-full h-64 object-cover rounded-md" />
-                                        <div>
-                                            <span className='block font-medium'>
-                                                {article.title}
-                                            </span>
-                                            <span className='block text-sm'>
-                                                {sliceText(article.description, 90)}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    {
-                                        user?._id == userData?._id ?
-                                            <div className='absolute w-full h-full bg-black-black rounded-md p-2 hidden group-hover:flex justify-center items-center'>
-                                                <button className="flex gap-2">
-                                                    <Link className=''>
-                                                        <EditIcon className='w-8 h-8 stroke-white-White hover:stroke-blue-500 duration-150' />
-                                                    </Link>
-                                                    <button
-                                                        onClick={() => {
-                                                            setOpenDele(true)
-                                                        }}
-                                                    >
-                                                        <DeleteIcon className='w-8 h-8 stroke-white-White hover:stroke-red-500 duration-150' />
-                                                    </button>
-                                                </button>
+                    <div className='grid gap-5 grid-cols-12'>
+                        {
+                            (articles.map((article, index) => (
+                                <div key={index} className="col-span-12 md:col-span-6 lg:col-span-4 space-y-2">
+                                    <div className='flex relative group duration-300'>
+                                        <div className='space-y-3'>
+                                            <img src={article.img} alt="" className="w-full h-64 object-cover rounded-md" />
+                                            <div>
+                                                <span className='block font-medium'>
+                                                    {sliceText(article.title, 40)}
+                                                </span>
+                                                <span className='block text-sm'>
+                                                    {sliceText(article.description, 90)}
+                                                </span>
                                             </div>
-                                            :
-                                            <Link target='_blank' to={`/blog/articles/${article._id}`} className='absolute w-full h-full bg-black-black/50 hidden group-hover:block rounded-md p-2'>
-                                                <p className='text-sm font-medium text-white-White'>
-                                                    {sliceText(article.title, 70)}
-                                                </p>
-                                            </Link>
-                                    }
+                                        </div>
+                                        {
+                                            user?._id == userData?._id ?
+                                                <div className='absolute w-full h-full bg-black-black rounded-md p-2 hidden group-hover:flex justify-center items-center'>
+                                                    <button className="flex gap-2">
+                                                        <Link className=''>
+                                                            <EditIcon className='w-8 h-8 stroke-white-White hover:stroke-blue-500 duration-150' />
+                                                        </Link>
+                                                        <button
+                                                            onClick={() => {
+                                                                setOpenDele(true)
+                                                            }}
+                                                        >
+                                                            <DeleteIcon className='w-8 h-8 stroke-white-White hover:stroke-red-500 duration-150' />
+                                                        </button>
+                                                    </button>
+                                                </div>
+                                                :
+                                                <Link target='_blank' to={`/blog/articles/${article._id}`} className='absolute w-full h-full bg-black-black/50 hidden group-hover:block rounded-md p-2'>
+                                                    <p className='text-sm font-medium text-white-White'>
+                                                        {sliceText(article.title, 70)}
+                                                    </p>
+                                                </Link>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                        ))) : (
+                            )))}
+                    </div>
+                    <div>
+                        {
+                            !articles?.length &&
                             <p className='text-gray-400 font-medium text-center py-10'>No articles yet</p>
-                        )}
+                        }
                     </div>
                 </div>
             </div>

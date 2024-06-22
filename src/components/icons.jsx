@@ -319,6 +319,17 @@ export const TwitterIcon = ({ className }) => {
 TwitterIcon.propTypes = {
     className: PropTypes.string
 }
+export const DashboardIcon = ({ className }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 75 75" fill="none">
+            <path fillRule="evenodd" clipRule="evenodd" d="M25 8.332H8.332V66.668H25V8.332ZM8.332 0C3.7304 0 0 3.7305 0 8.332V66.668C0 71.2696 3.7305 75 8.332 75H25C29.6016 75 33.332 71.2695 33.332 66.668V8.332C33.332 3.7304 29.6015 0 25 0H8.332ZM66.668 8.332H50V20.832H66.668V8.332ZM50 0C45.3984 0 41.668 3.7305 41.668 8.332V20.832C41.668 25.4375 45.3985 29.1679 50 29.1679H66.668C71.2696 29.1679 75 25.4374 75 20.832V8.332C75 3.7304 71.2695 0 66.668 0H50ZM50 45.832H66.668V66.668H50V45.832ZM41.668 45.832C41.668 41.2304 45.3985 37.5 50 37.5H66.668C71.2696 37.5 75 41.2305 75 45.832V66.668C75 71.2696 71.2695 75 66.668 75H50C45.3984 75 41.668 71.2695 41.668 66.668V45.832Z" fill="black" />
+        </svg>
+    )
+}
+
+DashboardIcon.propTypes = {
+    className: PropTypes.string
+}
 export const ThreeDotsIcon = () => {
     return (
         <div className='flex gap-[3px]'>

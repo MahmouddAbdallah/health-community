@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { PersonIcon } from '../components/icons'
+import { DashboardIcon, PersonIcon } from '../components/icons'
 import { LogOutIcon } from '../components/icons'
 import useCloseOnOutsideClick from '../hook/useCloseOnOutsideClick'
 import clsx from 'clsx'
@@ -47,6 +47,26 @@ const UserNavbar = ({ isMenu }) => {
                                         <div>{!isMenu && <PersonIcon className="w-6 h-6" />}</div>
                                         <div className=" w-full flex justify-center">
                                             <span> Profile</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </li>
+                            <li className={clsx(
+                                { 'border-t': isMenu }
+                            )}>
+                                <Link to={'/dashboard'}
+                                    onClick={() => {
+                                        setOpenUser(false)
+                                        document.body.style.overflowY = 'auto'
+                                    }}
+                                    className="">
+                                    <div className={clsx(
+                                        "flex px-2 py-3 dark:hover:bg-gray-900 rounded-md",
+                                        { "hover:bg-blue-200": !isMenu }
+                                    )}>
+                                        <div>{!isMenu && <DashboardIcon className="w-6 h-6" />}</div>
+                                        <div className=" w-full flex justify-center">
+                                            <span> Dashboard</span>
                                         </div>
                                     </div>
                                 </Link>

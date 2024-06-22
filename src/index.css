@@ -22,37 +22,73 @@ body{
     opacity: 100%;
   }
 }
-.rtl {
-  display: flex;
-  animation: anim-rtl .50s ease-in-out;
+
+@media (max-width: 1024px) {
+  .rtl {
+    display: flex;
+    animation: anim-rtl .50s ease-in-out;
+  }
+  
+  @keyframes anim-rtl {
+    0%{
+        transform: translateX(100%);
+        opacity: 0%;
+    }
+    100%{
+        transform: translateX(0%);
+        opacity:100%;
+    }
+  }
+  .ltr {
+    display: none;
+    animation: anim-ltr .50s ease-in-out;
+  }
+  @keyframes anim-ltr {
+    0%{
+        transform: translateX(0);
+        display: block;
+        opacity: 100%;
+    }
+    100%{
+        transform: translateX(100%);
+        display: none;
+        opacity: 0%;
+    }
+  }
+}
+.ttd {
+  display: block;
+  animation: anim-ttd .10s ease-in-out;
 }
 
-@keyframes anim-rtl {
+@keyframes anim-ttd {
   0%{
-      transform: translateX(100%);
+      transform: translateY(-100%);
       opacity: 0%;
   }
   100%{
-      transform: translateX(0%);
+      transform: translateY(0%);
       opacity:100%;
   }
 }
-.ltr {
+.dtt {
   display: none;
-  animation: anim-ltr .50s ease-in-out;
+  animation: anim-dtt .10s ease-in-out;
 }
-@keyframes anim-ltr {
+@keyframes anim-dtt {
   0%{
-      transform: translateX(0);
+      transform: translateY(0);
       display: block;
       opacity: 100%;
   }
   100%{
-      transform: translateX(100%);
+      transform: translateY(-100%);
       display: none;
       opacity: 0%;
   }
 }
+
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -60,4 +96,7 @@ body{
 .scrollbar-hide {
   -ms-overflow-style: none;  
   scrollbar-width: none; 
+}
+.inner-shadow {
+  box-shadow: inset 0 0 10px #0392d924;
 }

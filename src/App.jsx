@@ -12,6 +12,10 @@ import Article from './pages/Blog/pages/Article';
 import Doctor from './pages/Doctor/Doctor';
 import DoctorSignUp from './pages/Doctor/pages/DoctorSignUp';
 import Profile from './pages/Profile/Profile';
+import Dashboard from './pages/dashboard/Dashboard';
+import LayoutDashboard from './pages/dashboard/LayoutDashboard';
+import Appointment from './pages/dashboard/pages/Appointment';
+import Messages from './pages/dashboard/pages/Messages';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true;
@@ -32,6 +36,11 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/Profile/:id" element={<Profile />} />
             <Route path="/blog/articles/:id" element={<Article />} />
+          </Route>
+          <Route path="/dashboard" element={<LayoutDashboard />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/appointment" element={<Appointment />} />
+            <Route path="/dashboard/messages" element={<Messages />} />
           </Route>
           <Route path="/doctor/sign-in" element={<DoctorSignUp />} />
           <Route path='/sign-up' element={<SignUp />} />

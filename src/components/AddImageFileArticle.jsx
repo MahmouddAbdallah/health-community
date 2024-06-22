@@ -2,12 +2,14 @@ import { PlusIcon } from 'lucide-react'
 import { useRef, useEffect, useState, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom';
 
 const AddImageFileArticle = () => {
   const { register, } = useFormContext()
   const [img, setImg] = useState('')
   const inputFileRef = useRef();
   const btnRef = useRef();
+  const navigate = useNavigate()
 
   const { ref, ...rest } = register('img', {
     onChange: (e) => {
@@ -24,6 +26,7 @@ const AddImageFileArticle = () => {
     const input = inputFileRef.current;
     const clickInputFile = (e) => {
       e.preventDefault()
+      navigate('?edit=true')
       input.click();
     }
     btn?.addEventListener('click', clickInputFile);
@@ -33,7 +36,7 @@ const AddImageFileArticle = () => {
   }, [])
   return (
     <div>
-      {img ? <img src={img} className="w-full rounded-md object-cover" />
+      {img ? <img src={img} className="w-full rounded-md object-cover max-h-[450px]" />
         :
         <button ref={btnRef} className="h-96 w-full bg-gray-200 rounded-md flex justify-center items-center">
           <PlusIcon />
