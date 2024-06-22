@@ -5,7 +5,7 @@ import { useState } from 'react'
 const LayoutDashboard = () => {
     const [open, setOpen] = useState(false)
     return (
-        <div className='flex'>
+        <div className='lg:flex'>
             <div className='flex-1'>
                 <div className='lg:hidden'>
                     <Navbar setOpen={setOpen} />
