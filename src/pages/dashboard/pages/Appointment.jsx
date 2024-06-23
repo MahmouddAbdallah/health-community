@@ -7,14 +7,14 @@ import { ChevronDown } from 'lucide-react'
 import useCloseOnOutsideClick from "../../../hook/useCloseOnOutsideClick";
 import toast from "react-hot-toast";
 import { Spinner } from "../../../components/icons";
-
+import { UseAppContext } from '../../../context/AppContext'
 const Appointment = () => {
     const [appointment, setAppointment] = useState(null);
     const [loading, setLoading] = useState(false)
     const [openStatus, setOpenStatus] = useState('')
     const statuses = ["pending", "approved", "rejected"]
     const [data, setData] = useState({ status: "", _id: '' })
-
+    const { user } = UseAppContext()
 
     const fetchAppointments = async () => {
         try {
@@ -87,7 +87,7 @@ const Appointment = () => {
                         {appointment?.map((item) => {
                             let status = data?._id == item?._id ? data?.status : item?.status
                             return (
-                                <tr key={item._id} className="odd:bg-white even:bg-gray-50 ">
+                                <tr key={item?._id} className="odd:bg-white even:bg-gray-50 ">
                                     <th scope="row" className="px-6 py-4 text-xs font-medium text-gray-900 whitespace-nowrap ">
                                         {
                                             item.patient.name ?
@@ -121,7 +121,9 @@ const Appointment = () => {
                                     </td>
                                     <td className="px-6 py-4 text-xs">
                                         <div className="relative flex">
-                                            <button onClick={() => setOpenStatus(item._id == openStatus ? "" : item._id)} className="flex gap-2 items-center ">
+                                            <button
+                                                disabled={!(user?.role == 'doctor')}
+                                                onClick={() => setOpenStatus(item?._id == openStatus ? "" : item._id)} className="flex gap-2 items-center ">
                                                 <div
                                                     className={clsx(
                                                         'w-2 h-2 rounded-full',
@@ -132,7 +134,7 @@ const Appointment = () => {
                                                 />
                                                 <div className="flex items-center gap-1">
                                                     {status}
-                                                    <ChevronDown size={15} />
+                                                    {user?.role == 'doctor' && <ChevronDown size={15} />}
                                                 </div>
                                             </button>
                                             {
@@ -143,7 +145,7 @@ const Appointment = () => {
                                                             <button
                                                                 key={status}
                                                                 onClick={() => {
-                                                                    setData({ status: status, _id: item._id })
+                                                                    setData({ status: status, _id: item?._id })
                                                                     setOpenStatus("")
                                                                 }}
                                                                 className="w-full py-2 flex items-center gap-2 px-3">
@@ -164,7 +166,7 @@ const Appointment = () => {
                                         </div>
                                     </td>
                                     {
-                                        data._id == item._id &&
+                                        data?._id == item?._id &&
                                         <td className="px-6 py-4 text-xs">
                                             <button onClick={updateStatus} className="text-blue-500 font-medium">
                                                 {loading ? <Spinner className={'animate-spin'} /> : "Save"}

@@ -13,3 +13,12 @@ export const fetchArticlesFailure = (error) => ({ type: FETCH_ARTICLES_FAILURE, 
 // export const fetchDataRequest = () => ({ type: FETCH_ARTICLE_REQUEST });
 // export const fetchDataSuccess = (data) => ({ type: FETCH_ARTICLE_SUCCESS, payload: data });
 // export const fetchDataFailure = (error) => ({ type: FETCH_ARTICLE_FAILURE, payload: error });
+
+export const FETCH_NOTIFICATION_REQUEST = 'FETCH_NOTIFICATION_REQUEST';
+export const FETCH_NOTIFICATION_SUCCESS = 'FETCH_NOTIFICATION_SUCCESS';
+export const FETCH_NOTIFICATION_FAILURE = 'FETCH_NOTIFICATION_FAILURE';
+export const UPDATE_NOTIFICATION = 'UPDATE_NOTIFICATION';
+
+export const fetchNotificationRequest = (action) => ({ type: FETCH_NOTIFICATION_REQUEST, ...action });
+export const fetchNotificationSuccess = (data) => ({ type: FETCH_NOTIFICATION_SUCCESS, payload: data })
+export const fetchNotificationFailure = (error) => ({ type: FETCH_NOTIFICATION_FAILURE, payload: error })

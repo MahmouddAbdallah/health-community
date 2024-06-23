@@ -62,7 +62,7 @@ const InputImgFile = ({ imgUrl, userId }) => {
                     className='rounded-xl h-full w-full object-cover'
                     alt="" />
                 {
-                    user._id == userId &&
+                    user?._id == userId &&
                     <>
                         {loading ?
                             <div className='absolute w-full h-full flex justify-center rounded-xl items-center'>

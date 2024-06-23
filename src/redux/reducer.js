@@ -1,7 +1,8 @@
-import { FETCH_ARTICLES_REQUEST, FETCH_ARTICLES_FAILURE, FETCH_ARTICLES_SUCCESS } from "./actions"
+import { combineReducers } from '@reduxjs/toolkit'
+import { FETCH_ARTICLES_REQUEST, FETCH_ARTICLES_FAILURE, FETCH_ARTICLES_SUCCESS, FETCH_NOTIFICATION_REQUEST, FETCH_NOTIFICATION_SUCCESS, UPDATE_NOTIFICATION } from "./actions"
 const initialState = {}
 
-const Reducer = (state = initialState, action) => {
+const article = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_ARTICLES_REQUEST:
             return { ...state.article, loading: true, error: null };
@@ -13,5 +14,22 @@ const Reducer = (state = initialState, action) => {
             return state;
     }
 }
+const notification = (state = initialState, action) => {
+    switch (action.type) {
+        case FETCH_NOTIFICATION_REQUEST:
+            return { ...state, loading: true, error: null };
+        case FETCH_NOTIFICATION_SUCCESS:
+            return { ...state, loading: false, data: action.payload.notification };
+        case FETCH_ARTICLES_FAILURE:
+            return { ...state, loading: false, error: action.payload }
+        case UPDATE_NOTIFICATION:
+            return { data: action.payload.notification }
+        default:
+            return state;
+    }
+}
 
-export default Reducer
+export default combineReducers({
+    article,
+    notification
+})

@@ -1,6 +1,7 @@
 // sagas.js
 import { call, put, takeEvery, all } from 'redux-saga/effects';
-import { FETCH_ARTICLES_REQUEST, fetchArticlesSuccess, fetchArticlesFailure } from './actions';
+import { FETCH_ARTICLES_REQUEST, fetchArticlesSuccess, fetchArticlesFailure, fetchNotificationFailure, fetchNotificationSuccess } from './actions';
+import axios from 'axios';
 
 function* fetchArticles() {
     try {
@@ -16,8 +17,23 @@ function* watchFetchArticles() {
     yield takeEvery(FETCH_ARTICLES_REQUEST, fetchArticles);
 }
 
+function* fetchNotification(action) {
+    try {
+        const { limit } = action;
+        const { data } = yield call(axios.get, `/api/notification?limit=${limit}`);
+        yield put(fetchNotificationSuccess(data));
+    } catch (error) {
+        yield put(fetchNotificationFailure(error.message))
+    }
+}
+
+function* watchFetchNotification() {
+    yield takeEvery('FETCH_NOTIFICATION_REQUEST', fetchNotification);
+}
+
 export default function* rootSaga() {
     yield all([
         watchFetchArticles(),
+        watchFetchNotification()
     ]);
 }
