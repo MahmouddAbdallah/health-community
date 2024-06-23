@@ -35,19 +35,24 @@ const BioInfo = ({ specialization, bio }) => {
         <div className='mt-2'>
             <div className='space-y-2'>
                 <div className='space-y-2'>
-                    <div className='flex items-start gap-3'>
+                    {bio?.experience && <div className='flex items-start gap-3'>
                         <ExperienceIcon className={'w-7 h-7 fill-black-black'} />
                         {bio?.experience}
                     </div>
-                    <div className='flex items-start gap-3'>
-                        <LocationIcon className={'w-7 h-7 fill-black-black stroke-none'} />
-                        {bio?.location}
-                    </div>
+                    }
+                    {bio?.location &&
+                        <div className='flex items-start gap-3'>
+                            <LocationIcon className={'w-7 h-7 fill-black-black stroke-none'} />
+                            {bio?.location}
+                        </div>
+                    }
                 </div>
                 <div className='space-y-3'>
-                    <div className='bg-blue-50 text-blue-500 w-fit px-5 text-sm font-medium py-2 rounded-full'>
-                        {specialization}
-                    </div>
+                    {specialization &&
+                        <div className='bg-blue-50 text-blue-500 w-fit px-5 text-sm font-medium py-2 rounded-full'>
+                            {specialization}
+                        </div>
+                    }
                     <div className='flex gap-3'>
                         {bio?.socialMedia.map((item) => {
                             return (

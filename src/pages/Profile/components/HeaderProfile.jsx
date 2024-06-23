@@ -31,7 +31,6 @@ const HeaderProfile = ({ userData }) => {
             fetchBioOfUser()
         }
     }, [bio, fetchBioOfUser])
-
     return (
         <div className='flex flex-col items-center px-5'>
             <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10'>
@@ -45,7 +44,8 @@ const HeaderProfile = ({ userData }) => {
             <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 relative'>
                 <div className='w-full grid grid-cols-12 p-5  space-y-5 md:space-y-0 md:gap-10'>
                     <div className='col-span-12 md:col-span-4'>
-                        <InputImgFile imgUrl={userData?.picture} />
+                        <InputImgFile imgUrl={userData?.picture} userId={userData?._id} />
+
                     </div>
                     <div className='col-span-12 md:col-span-8'>
                         <div className='h-full flex flex-col gap-3 justify-between'>
@@ -68,25 +68,27 @@ const HeaderProfile = ({ userData }) => {
                                 </div>
                                 <BioInfo bio={bio} specialization={userData?.specialization} />
                             </div>
-                            <div className='flex gap-3'>
-                                <button
-                                    key={'btn'}
-                                    onClick={() => {
-                                        setOpenAppointment(!openAppointment)
-                                        document.body.style.overflow = "hidden"
-                                    }}
-                                    className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
-                                    Book appointment
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        setOpenAppointment(!openAppointment)
-                                        document.body.style.overflow = "hidden"
-                                    }}
-                                    className='bg-black-black w-fit px-5 py-2 text-white-White rounded-full'>
-                                    Message
-                                </button>
-                            </div>
+                            {userData?._id != user?._id &&
+                                <div className='flex gap-3'>
+                                    {userData?.role == 'doctor' && <button
+                                        key={'btn'}
+                                        onClick={() => {
+                                            setOpenAppointment(!openAppointment)
+                                            document.body.style.overflow = "hidden"
+                                        }}
+                                        className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
+                                        Book appointment
+                                    </button>}
+                                    <button
+                                        onClick={() => {
+                                            setOpenAppointment(!openAppointment)
+                                            document.body.style.overflow = "hidden"
+                                        }}
+                                        className='bg-black-black w-fit px-5 py-2 text-white-White rounded-full'>
+                                        Message
+                                    </button>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -103,16 +105,18 @@ const HeaderProfile = ({ userData }) => {
                     }
                 </div>
             </div>
-            <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10 relative'>
-                <div className="p-3">
-                    <span className="font-medium text-lg block">
-                        About me:
-                    </span>
-                    <span className=''>
-                        {bio?.aboutme}
-                    </span>
+            {bio?.aboutme &&
+                <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10 relative'>
+                    <div className="p-3">
+                        <span className="font-medium text-lg block">
+                            About me:
+                        </span>
+                        <span className=''>
+                            {bio?.aboutme}
+                        </span>
+                    </div>
                 </div>
-            </div>
+            }
             {open && <UpdateBio setOpen={setOpen} bio={bio} setBio={setBio} />}
             {openAppointment && <BookingAppointment setOpen={setOpenAppointment} doctorId={userData?.role == 'doctor' ? userData._id : ""} />}
         </div >

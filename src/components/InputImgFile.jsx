@@ -7,7 +7,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { UseAppContext } from '../context/AppContext';
 
-const InputImgFile = ({ imgUrl }) => {
+const InputImgFile = ({ imgUrl, userId }) => {
     const [img, setImg] = useState('')
     const [imgFile, setImgFile] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -61,26 +61,31 @@ const InputImgFile = ({ imgUrl }) => {
                     src={imgUrl ? (img ? img : imgUrl) : '../person.jpg'}
                     className='rounded-xl h-full w-full object-cover'
                     alt="" />
-                {loading ?
-                    <div className='absolute w-full h-full flex justify-center rounded-xl items-center'>
-                        <Spinner className={'animate-spin stroke-white-White fill-transparent w-10 h-10'} />
-                    </div>
-                    :
-                    <div className={"absolute invisible group-hover:visible rounded-xl w-full h-full bg-gray-800/20"}>
-                        <button onClick={() => {
-                            setOpen(true)
-                            document.body.style.overflow = 'hidden'
-                        }} className='w-full h-full flex items-center justify-center'>
-                            <CameraIcon className={'w-10 h-10'} />
-                        </button>
-                        <input ref={inputFileRef} type="file" className='hidden'
-                            onChange={(e) => {
-                                console.log('hello');
-                                const file = e.target.files[0];
-                                setImg(URL.createObjectURL(file))
-                                setImgFile(file)
-                            }} />
-                    </div>
+                {
+                    user._id == userId &&
+                    <>
+                        {loading ?
+                            <div className='absolute w-full h-full flex justify-center rounded-xl items-center'>
+                                <Spinner className={'animate-spin stroke-white-White fill-transparent w-10 h-10'} />
+                            </div>
+                            :
+                            <div className={"absolute invisible group-hover:visible rounded-xl w-full h-full bg-gray-800/20"}>
+                                <button onClick={() => {
+                                    setOpen(true)
+                                    document.body.style.overflow = 'hidden'
+                                }} className='w-full h-full flex items-center justify-center'>
+                                    <CameraIcon className={'w-10 h-10'} />
+                                </button>
+                                <input ref={inputFileRef} type="file" className='hidden'
+                                    onChange={(e) => {
+                                        console.log('hello');
+                                        const file = e.target.files[0];
+                                        setImg(URL.createObjectURL(file))
+                                        setImgFile(file)
+                                    }} />
+                            </div>
+                        }
+                    </>
                 }
             </div>
             <div className={`fixed w-full h-full top-0 left-0 bg-gray-900/30 ${open ? 'flex' : "hidden"} items-center justify-center px-5 z-50`}>
@@ -108,7 +113,8 @@ const InputImgFile = ({ imgUrl }) => {
 }
 
 InputImgFile.propTypes = {
-    imgUrl: PropTypes.string
+    imgUrl: PropTypes.string,
+    userId: PropTypes.string
 }
 
 export default InputImgFile

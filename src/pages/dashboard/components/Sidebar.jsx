@@ -10,20 +10,20 @@ const Sidebar = ({ open, setOpen }) => {
         {
             name: 'Appointment',
             href: '/dashboard/appointment',
-            subs: [
-                {
-                    name: 'Today',
-                    href: '/dashboard/appointment/today'
-                },
-                {
-                    name: 'Upcoming',
-                    href: '/dashboard/appointment/upcoming'
-                },
-                {
-                    name: 'Past',
-                    href: '/dashboard/appointment/past'
-                }
-            ]
+            // subs: [
+            //     {
+            //         name: 'Today',
+            //         href: '/dashboard/appointment/today'
+            //     },
+            //     {
+            //         name: 'Upcoming',
+            //         href: '/dashboard/appointment/upcoming'
+            //     },
+            //     {
+            //         name: 'Past',
+            //         href: '/dashboard/appointment/past'
+            //     }
+            // ]
         },
         {
             name: 'Messages',
