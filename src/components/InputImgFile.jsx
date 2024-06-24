@@ -76,13 +76,6 @@ const InputImgFile = ({ imgUrl, userId }) => {
                                 }} className='w-full h-full flex items-center justify-center'>
                                     <CameraIcon className={'w-10 h-10'} />
                                 </button>
-                                <input ref={inputFileRef} type="file" className='hidden'
-                                    onChange={(e) => {
-                                        console.log('hello');
-                                        const file = e.target.files[0];
-                                        setImg(URL.createObjectURL(file))
-                                        setImgFile(file)
-                                    }} />
                             </div>
                         }
                     </>
@@ -94,6 +87,13 @@ const InputImgFile = ({ imgUrl, userId }) => {
                     document.body.style.overflow = 'auto'
                 }} className='absolute w-full h-full' />
                 <div className='bg-white-White w-full sm:w-96 md:w-[450px] rounded-md z-50'>
+                    <input ref={inputFileRef} type="file" className='hidden'
+                        onChange={(e) => {
+                            console.log('hello');
+                            const file = e.target.files[0];
+                            setImg(URL.createObjectURL(file))
+                            setImgFile(file)
+                        }} />
                     <button ref={btnRef} className='py-4 w-full border-b-2'>
                         Upload new Image
                     </button>
