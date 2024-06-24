@@ -7,8 +7,9 @@ import { ThreeDotsIcon } from './icons';
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { Spinner } from './icons'
-
-const NotificationData = () => {
+import { ArrowRightIcon } from 'lucide-react'
+import PropTypes from 'prop-types'
+const NotificationData = ({ setOpen }) => {
     const [id, setId] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -17,8 +18,8 @@ const NotificationData = () => {
     const notification = useSelector((state) => state.notification);
     useEffect(() => {
         dispatch({ type: FETCH_NOTIFICATION_REQUEST, limit: 10, });
-    }, [])
-    console.log(notification);
+    }, [dispatch])
+
     const deleteOne = async () => {
         try {
             setLoading(true)
@@ -37,7 +38,9 @@ const NotificationData = () => {
     const deleteAll = async () => {
         try {
             setLoading(true)
-            await axios.delete(`/api/notification`)
+            const { data } = await axios.delete(`/api/notification`)
+            dispatch({ type: UPDATE_NOTIFICATION, notification: [] });
+            toast.success(data.message)
             setLoading(false)
         } catch (error) {
             toast.error(error?.response?.data?.message || 'There is an Error')
@@ -46,14 +49,24 @@ const NotificationData = () => {
         }
     }
 
-
+    console.log(notification);
     return (
         <div>
-            <div className='py-3 flex justify-center border-b-2'>
+            <div className='py-3 flex justify-between md:justify-center border-b-2'>
                 <button
                     onClick={deleteAll}
-                    className='text-sm font-medium text-red-500'>
+                    className='text-sm font-medium text-red-500 hidden md:block'>
                     Delete All
+                </button>
+                <div className='flex-1 flex justify-center font-medium md:hidden'>
+                    Notification
+                </div>
+                <button
+                    onClick={() => {
+                        setOpen(false)
+                    }}
+                    className='md:hidden'>
+                    <ArrowRightIcon />
                 </button>
             </div>
             {
@@ -100,5 +113,7 @@ const NotificationData = () => {
         </div>
     )
 }
-
+NotificationData.propTypes = {
+    setOpen: PropTypes.func
+}
 export default NotificationData

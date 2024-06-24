@@ -8,6 +8,7 @@ import Logo from '../assets/Logo.svg'
 import WhiteLogo from '../assets/WhiteLogo.svg'
 import clsx from 'clsx'
 import MenuNavbar from './MenuNavbar'
+import Notification from './Notification'
 
 const Navbar = ({ inderbg }) => {
     const { user } = UseAppContext()
@@ -57,7 +58,8 @@ const Navbar = ({ inderbg }) => {
                     }
                 </ul>
             </div>
-            <div className="block md:hidden ">
+            <div className="flex gap-3 md:hidden ">
+                <Notification />
                 <button onClick={() => {
                     setOpen(!open)
                     document.body.style.overflowY = 'hidden'

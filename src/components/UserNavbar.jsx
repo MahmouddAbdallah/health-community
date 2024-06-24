@@ -18,9 +18,9 @@ const UserNavbar = ({ isMenu }) => {
                 `relative min-w-[150px] flex justify-center`,
                 { 'flex-col border-b': isMenu }
             )}>
-                <div className='flex items-center gap-2'>
+                <div className='flex justify-center items-center gap-2'>
                     <button onClick={() => { setOpenUser(!openUser) }} className="cursor-pointer" >
-                        <div className="flex items-center justify-center md:justify-normal px-1 py-3 md:py-1 gap-2 hover:bg-black-black/10  duration-300 rounded-md">
+                        <div className="flex items-center justify-center md:justify-normal px-1 py-3 md:py-1 gap-2 md:hover:bg-black-black/10  duration-300 rounded-md">
                             <div className="font-medium" >
                                 {user?.name}
                             </div>
@@ -29,7 +29,12 @@ const UserNavbar = ({ isMenu }) => {
                             </div>
                         </div>
                     </button>
-                    <Notification />
+                    <div className={clsx(
+                        'hidden md:block',
+                        { 'stroke-white-White': isMenu }
+                    )}>
+                        <Notification />
+                    </div>
                 </div>
                 {openUser &&
                     <div className={clsx(

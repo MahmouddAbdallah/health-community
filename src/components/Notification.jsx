@@ -25,8 +25,8 @@ const Notification = () => {
             </button>
             {
                 open &&
-                <div className="text-black-black absolute border-2 bg-white-White w-96 min-h-96 md:w-[450px] right-0 top-8 z-50 rounded-md">
-                    <NotificationData />
+                <div className="text-black-black fixed top-0 max-md-left-0 w-full h-full md:absolute border-2 bg-white-White min-h-96 md:w-[450px] md:right-0 md:top-8 z-50 md:rounded-md">
+                    <NotificationData setOpen={setOpen} />
                 </div>
             }
         </div>

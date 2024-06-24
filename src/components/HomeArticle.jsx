@@ -22,7 +22,7 @@ const HomeArticle = () => {
             <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">Read some Articles</h4>
             <div className=" py-10 min-h-[80vh]">
                 {data &&
-                    <div className="grid grid-cols-12 gap-10">
+                    <div className="grid grid-cols-12 lg:gap-10">
                         <div className="hidden lg:block col-span-12 lg:col-span-6">
                             <Link to={`/blog/articles/${firstArticle._id}`} className="space-y-5 block">
                                 <div>

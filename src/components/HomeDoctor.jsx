@@ -20,24 +20,28 @@ const HomeDoctor = () => {
     return (
         <div className="pcontainer py-10 space-y-10">
             <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">Our special doctors</h4>
-            <div className='flex gap-5 flex-wrap'>
+            <div className='grid grid-cols-12 space-y-10 md:space-y-0 lg:gap-5'>
                 {doctors?.map(doctor => {
                     return (
-                        <Link
+                        <div
                             key={doctor._id}
-                            className='block'
-                            to={`/profile/${doctor._id}`}
+                            className='col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3'
                         >
-                            <div className='space-y-3'>
-                                <div>
-                                    <img src={doctor.picture} alt={doctor.name} className="w-44 h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 object-cover rounded-full" />
+                            <Link
+                                className='block'
+                                to={`/profile/${doctor._id}`}
+                            >
+                                <div className='space-y-3 flex flex-col items-center justify-center'>
+                                    <div>
+                                        <img src={doctor.picture} alt={doctor.name} className="w-72 h-72 md:w-52 md:h-52 lg:w-60 lg:h-60 object-cover rounded-full" />
+                                    </div>
+                                    <div className='text-center'>
+                                        <h5 className="text-lg font-medium">{doctor.name}</h5>
+                                        <h5 className="">{doctor.specialization}</h5>
+                                    </div>
                                 </div>
-                                <div className='text-center'>
-                                    <h5 className="text-lg font-medium">{doctor.name}</h5>
-                                    <h5 className="">{doctor.specialization}</h5>
-                                </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                     )
                 })}
             </div>

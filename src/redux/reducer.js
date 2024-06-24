@@ -19,7 +19,7 @@ const notification = (state = initialState, action) => {
         case FETCH_NOTIFICATION_REQUEST:
             return { ...state, loading: true, error: null };
         case FETCH_NOTIFICATION_SUCCESS:
-            return { ...state, loading: false, data: action.payload.notification };
+            return { ...state, loading: false, data: action.payload };
         case FETCH_ARTICLES_FAILURE:
             return { ...state, loading: false, error: action.payload }
         case UPDATE_NOTIFICATION:

@@ -21,9 +21,10 @@ function* fetchNotification(action) {
     try {
         const { limit } = action;
         const { data } = yield call(axios.get, `/api/notification?limit=${limit}`);
-        yield put(fetchNotificationSuccess(data));
+        yield put(fetchNotificationSuccess(data.notification));
     } catch (error) {
-        yield put(fetchNotificationFailure(error.message))
+        yield put(fetchNotificationFailure(error?.response?.data?.message || 'Failed to fetch notifications'));
+
     }
 }
 
