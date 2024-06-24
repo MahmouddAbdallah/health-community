@@ -1,6 +1,6 @@
 // sagas.js
 import { call, put, takeEvery, all } from 'redux-saga/effects';
-import { FETCH_ARTICLES_REQUEST, fetchArticlesSuccess, fetchArticlesFailure, fetchNotificationFailure, fetchNotificationSuccess } from './actions';
+import { FETCH_ARTICLES_REQUEST, fetchArticlesSuccess, fetchArticlesFailure, fetchNotificationFailure, fetchNotificationSuccess, UPDATE_NOTIFICATION } from './actions';
 import axios from 'axios';
 
 function* fetchArticles() {
@@ -27,13 +27,21 @@ function* fetchNotification(action) {
     }
 }
 
+
 function* watchFetchNotification() {
     yield takeEvery('FETCH_NOTIFICATION_REQUEST', fetchNotification);
+}
+function* updateNotification(data) {
+    yield put(updateNotification(data))
+}
+function* watchUpdateNotification() {
+    yield takeEvery(UPDATE_NOTIFICATION, updateNotification);
 }
 
 export default function* rootSaga() {
     yield all([
         watchFetchArticles(),
-        watchFetchNotification()
+        watchFetchNotification(),
+        watchUpdateNotification()
     ]);
 }

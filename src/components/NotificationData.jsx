@@ -26,7 +26,7 @@ const NotificationData = () => {
             const update = notification.data.filter((not) => {
                 return not._id != id
             })
-            dispatch({ type: UPDATE_NOTIFICATION, data: update });
+            dispatch({ type: UPDATE_NOTIFICATION, notification: update });
             setLoading(false)
         } catch (error) {
             toast.error(error?.response?.data?.message || 'There is an Error')
@@ -68,9 +68,9 @@ const NotificationData = () => {
                                             <h3 className='text-xs font-medium'>{item?.from?.name}</h3>
                                             <h3 className='text-xs '>{item?.message}</h3>
                                             <div className='flex items-center gap-2'>
-                                                <div className={clsx('w-2 h-2 rounded-full', { 'bg-yellow-500': item.schemaId.status == 'pending' }, { 'bg-green-500': item.schemaId.status == 'approved' }, { 'bg-red-500': item.schemaId.status == 'rejected' },)} />
+                                                <div className={clsx('w-2 h-2 rounded-full', { 'bg-yellow-500': item.status == 'pending' }, { 'bg-green-500': item.status == 'approved' }, { 'bg-red-500': item.status == 'rejected' },)} />
                                                 <span className='text-xs'>
-                                                    {item.schemaId.status}
+                                                    {item.status}
                                                 </span>
                                             </div>
                                             <h3 className='text-xs font-medium'>{convetDate(item?.createdAt)}</h3>

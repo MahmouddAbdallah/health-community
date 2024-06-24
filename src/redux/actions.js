@@ -22,3 +22,4 @@ export const UPDATE_NOTIFICATION = 'UPDATE_NOTIFICATION';
 export const fetchNotificationRequest = (action) => ({ type: FETCH_NOTIFICATION_REQUEST, ...action });
 export const fetchNotificationSuccess = (data) => ({ type: FETCH_NOTIFICATION_SUCCESS, payload: data })
 export const fetchNotificationFailure = (error) => ({ type: FETCH_NOTIFICATION_FAILURE, payload: error })
+export const updateNotification = (data) => ({ type: UPDATE_NOTIFICATION, payload: data })

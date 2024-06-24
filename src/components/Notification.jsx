@@ -25,7 +25,7 @@ const Notification = () => {
             </button>
             {
                 open &&
-                <div className="text-black-black absolute bg-white-White w-96 min-h-96 md:w-[450px] right-0 top-8">
+                <div className="text-black-black absolute border-2 bg-white-White w-96 min-h-96 md:w-[450px] right-0 top-8 z-50 rounded-md">
                     <NotificationData />
                 </div>
             }
