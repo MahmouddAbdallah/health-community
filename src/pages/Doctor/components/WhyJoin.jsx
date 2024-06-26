@@ -9,9 +9,9 @@ const WhyJoin = () => {
     ]
     return (
         <div className="pcontainer py-28">
-            <div className="grid grid-cols-12 gap-10 lg:gap-20">
+            <div className="flex flex-col-reverse gap-10 lg:grid grid-cols-12 lg:gap-20">
                 <div className="col-span-12 lg:col-span-6">
-                    <div className="space-y-10">
+                    <div className="space-y-5 lg:space-y-10">
                         <h1 className="text-lg md:text-2xl lg:text-3xl font-bold">Why Join WellnEase?</h1>
                         <ul className="space-y-5">
                             {reasons.map(item => {

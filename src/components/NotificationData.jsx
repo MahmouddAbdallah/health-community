@@ -66,7 +66,7 @@ const NotificationData = ({ setOpen }) => {
                         setOpen(false)
                     }}
                     className='md:hidden'>
-                    <ArrowRightIcon />
+                    <ArrowRightIcon className='stroke-black' />
                 </button>
             </div>
             {

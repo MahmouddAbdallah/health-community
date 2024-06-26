@@ -105,3 +105,9 @@ body{
       left: 0px;
   }
 }
+.stroke-white svg{
+  stroke: white ;
+}
+.stroke-black{
+  stroke: black !important;
+}

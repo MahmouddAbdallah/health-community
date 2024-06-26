@@ -6,6 +6,7 @@ import { Spinner } from '../components/icons';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { UseAppContext } from '../context/AppContext';
+import clsx from 'clsx';
 
 const InputImgFile = ({ imgUrl, userId }) => {
     const [img, setImg] = useState('')
@@ -57,29 +58,30 @@ const InputImgFile = ({ imgUrl, userId }) => {
     return (
         <div className='w-full h-full'>
             <div className="w-full h-full relative flex justify-center items-center group duration-200">
-                <img
-                    src={imgUrl ? (img ? img : imgUrl) : '../person.jpg'}
-                    className='rounded-xl h-full w-full object-cover'
-                    alt="" />
-                {
-                    user?._id == userId &&
-                    <>
-                        {loading ?
-                            <div className='absolute w-full h-full flex justify-center rounded-xl items-center'>
-                                <Spinner className={'animate-spin stroke-white-White fill-transparent w-10 h-10'} />
-                            </div>
-                            :
-                            <div className={"absolute invisible group-hover:visible rounded-xl w-full h-full bg-gray-800/20"}>
-                                <button onClick={() => {
-                                    setOpen(true)
-                                    document.body.style.overflow = 'hidden'
-                                }} className='w-full h-full flex items-center justify-center'>
-                                    <CameraIcon className={'w-10 h-10'} />
-                                </button>
-                            </div>
-                        }
-                    </>
-                }
+                <div className='max-h-60 w-full bg-black-black/20 rounded-md'>
+                    <img
+                        src={imgUrl ? (img ? img : imgUrl) : '../person.jpg'}
+                        className='rounded-xl max-h-60 object-top w-full object-contain'
+                        alt="" />
+                </div>
+                <div className={clsx(
+                    'absolute w-full h-full flex justify-center rounded-xl items-center',
+                    { 'hidden': !loading },
+                    { "hidden": user?._id != userId }
+                )}>
+                    <Spinner className={'animate-spin stroke-white-White fill-transparent w-10 h-10'} />
+                </div>
+                <div className={clsx(
+                    "absolute invisible group-hover:visible rounded-xl w-full h-full bg-gray-800/20",
+                    { 'hidden': loading }
+                )}>
+                    <button onClick={() => {
+                        setOpen(true)
+                        document.body.style.overflow = 'hidden'
+                    }} className='w-full h-full flex items-center justify-center'>
+                        <CameraIcon className={'w-10 h-10'} />
+                    </button>
+                </div>
             </div>
             <div className={`fixed w-full h-full top-0 left-0 bg-gray-900/30 ${open ? 'flex' : "hidden"} items-center justify-center px-5 z-50`}>
                 <div onClick={() => {
@@ -87,23 +89,28 @@ const InputImgFile = ({ imgUrl, userId }) => {
                     document.body.style.overflow = 'auto'
                 }} className='absolute w-full h-full' />
                 <div className='bg-white-White w-full sm:w-96 md:w-[450px] rounded-md z-50'>
-                    <input ref={inputFileRef} type="file" className='hidden'
-                        onChange={(e) => {
-                            console.log('hello');
-                            const file = e.target.files[0];
-                            setImg(URL.createObjectURL(file))
-                            setImgFile(file)
-                        }} />
                     <button ref={btnRef} className='py-4 w-full border-b-2'>
+                        <input
+                            ref={inputFileRef}
+                            type="file"
+                            className='hidden'
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                setImg(URL.createObjectURL(file))
+                                setImgFile(file)
+                            }}
+                        />
                         Upload new Image
                     </button>
                     <button className='py-4 w-full text-red-600 border-b-2'>
                         Delete current Image
                     </button>
-                    <button onClick={() => {
-                        setOpen(false)
-                        document.body.style.overflow = 'auto'
-                    }} className='py-4 w-full'>
+                    <button
+                        onClick={() => {
+                            setOpen(false)
+                            document.body.style.overflow = 'auto'
+                        }}
+                        className='py-4 w-full'>
                         Cancel
                     </button>
                 </div>

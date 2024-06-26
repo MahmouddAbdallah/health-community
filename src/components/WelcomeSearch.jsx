@@ -2,7 +2,7 @@ import BackGroundImg from "./BackGroundImg"
 import bg from '../assets/vegetable.png'
 import Navbar from "./Navbar"
 import { UseAppContext } from "../context/AppContext"
-import { SearchIcon } from "../components/icons"
+import Search from "./Search"
 const WelcomeSearch = () => {
     const { user } = UseAppContext();
     return (
@@ -16,16 +16,7 @@ const WelcomeSearch = () => {
                             What would you like to do next?
                         </h1>
                     </div>
-                    <form className="w-full flex justify-center " >
-                        <div className="relative w-[320px] sm:w-[400px] md:w-[450px] lg:w-[550px] flex justify-center items-center">
-                            <SearchIcon className={"absolute left-3 fill-black-black/50 w-5 h-5"} />
-                            <input
-                                type="text"
-                                placeholder="Search for doctors, or anything?"
-                                className="w-full py-3 rounded-full pl-10 outline-none"
-                            />
-                        </div>
-                    </form>
+                    <Search />
                 </div>
             </div>
         </BackGroundImg>

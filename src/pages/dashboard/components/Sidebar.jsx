@@ -29,6 +29,10 @@ const Sidebar = ({ open, setOpen }) => {
             name: 'Messages',
             href: '/dashboard/messages'
         },
+        {
+            name: 'Store',
+            href: '/dashboard/store/create',
+        },
     ]
     const eleRef = useCloseOnOutsideClick(() => setOpen(false))
     return (

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FETCH_ARTICLES_REQUEST } from "../redux/actions";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import BlogArticleLoading from '../components/loading/BlogArticleLoading'
 const HomeArticle = () => {
 
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const HomeArticle = () => {
         <div className="bg-[#F5F5F5] pcontainer py-10">
             <h4 className="text-xl md:text-2xl lg:text-3xl font-medium">Read some Articles</h4>
             <div className=" py-10 min-h-[80vh]">
-                {data &&
+                {data ?
                     <div className="grid grid-cols-12 lg:gap-10">
                         <div className="hidden lg:block col-span-12 lg:col-span-6">
                             <Link to={`/blog/articles/${firstArticle._id}`} className="space-y-5 block">
@@ -76,6 +76,8 @@ const HomeArticle = () => {
                             </div>
                         </div>
                     </div>
+                    :
+                    <BlogArticleLoading />
                 }
             </div>
         </div>

@@ -21,7 +21,7 @@ const Notification = () => {
     return (
         <div ref={ref} className="flex items-center relative">
             <button onClick={() => setOpen(!open)}>
-                <BellIcon />
+                <BellIcon className='' />
             </button>
             {
                 open &&

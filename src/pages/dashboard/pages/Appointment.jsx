@@ -57,7 +57,7 @@ const Appointment = () => {
 
     const eleRef = useCloseOnOutsideClick(() => setOpenStatus(''))
     return (
-        <div className=' pcontainer py-10 w-full overflow-x-auto'>
+        <div className='pcontainer py-10 w-full overflow-x-auto'>
             <div className="h-full" >
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
                     <thead className="text-xs text-gray-700 whitespace-nowrap uppercase bg-gray-100">

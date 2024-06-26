@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import convetDate from "../../../utils/convertDate"
 import Comments from "../components/Comments"
 import ImgOrAva from "../../../components/ImgOrAva"
+import ArticleLoading from "../../../components/loading/ArticleLoading"
 
 const Article = () => {
     const { id } = useParams()
@@ -30,7 +31,7 @@ const Article = () => {
         <div className="pb-10">
             <Navbar />
             <div>
-                {article &&
+                {article ?
                     <article>
                         <div className="flex flex-col-reverse py-10 md:py-0 gap-10 md:gap-0 md:grid grid-cols-12 bg-[#F5F5F5]">
                             <div className="col-span-6 px-5 md:px-0  pl-4 sm:pl-3 md:pl-5 lg:pl-10 xl:pl-20">
@@ -96,6 +97,7 @@ const Article = () => {
                             </div>
                         </div>
                     </article>
+                    : <ArticleLoading />
                 }
             </div>
         </div>

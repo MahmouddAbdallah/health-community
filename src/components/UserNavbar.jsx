@@ -1,17 +1,19 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { DashboardIcon, PersonIcon } from '../components/icons'
 import { LogOutIcon } from '../components/icons'
 import useCloseOnOutsideClick from '../hook/useCloseOnOutsideClick'
 import clsx from 'clsx'
 import { UseAppContext } from '../context/AppContext'
 import Notification from './Notification'
+import { ShoppingCartIcon } from 'lucide-react'
 
 const UserNavbar = ({ isMenu }) => {
     const [openUser, setOpenUser] = useState(false);
     const { user } = UseAppContext()
     const userRef = useCloseOnOutsideClick(() => { setOpenUser(false) })
+    const { pathname } = useLocation()
     return (
         <div>
             <div ref={userRef} className={clsx(
@@ -30,10 +32,16 @@ const UserNavbar = ({ isMenu }) => {
                         </div>
                     </button>
                     <div className={clsx(
-                        'hidden md:block',
+                        'hidden md:flex gap-3',
                         { 'stroke-white-White': isMenu }
                     )}>
                         <Notification />
+                        {
+                            pathname.includes('store') &&
+                            <Link to={'/store/cart'}>
+                                <ShoppingCartIcon />
+                            </Link>
+                        }
                     </div>
                 </div>
                 {openUser &&
