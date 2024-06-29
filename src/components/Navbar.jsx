@@ -1,21 +1,15 @@
 import PropTypes from 'prop-types'
-import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { UseAppContext } from "../context/AppContext"
-import { MenuIcon } from "../components/icons"
 import UserNavbar from "./UserNavbar"
 import Logo from '../assets/Logo.svg'
 import WhiteLogo from '../assets/WhiteLogo.svg'
 import clsx from 'clsx'
 import MenuNavbar from './MenuNavbar'
-import Notification from './Notification'
-import { ShoppingCartIcon } from 'lucide-react'
 
 const Navbar = ({ inderbg }) => {
     const { user } = UseAppContext()
     const navbarItem = [{ name: 'Home', href: '/home' }, { name: 'Shopping', href: '/store' }, { name: 'Doctor', href: '/doctor' }, { name: 'Blog', href: '/blog' }, { name: 'Contact', href: '/contact' }]
-    const [open, setOpen] = useState(false);
-    const { pathname } = useLocation()
 
     return (
         <nav className={clsx(
@@ -60,33 +54,8 @@ const Navbar = ({ inderbg }) => {
                     }
                 </ul>
             </div>
-            <div className="flex gap-3 items-center md:hidden ">
-                <div className={clsx(
-                    'flex gap-2',
-                    { 'stroke-white': inderbg }
-                )}>
-                    <Notification />
-                    {
-                        pathname.includes('store') &&
-                        <Link to={'/store/cart'}>
-                            <ShoppingCartIcon />
-                        </Link>
-                    }
-                </div>
-                <button onClick={() => {
-                    setOpen(!open)
-                    document.body.style.overflowY = 'hidden'
-                }} >
-                    <MenuIcon className={clsx(
-                        'w-7 h-7',
-                        { "fill-white-White": inderbg },
-                    )} />
-                </button>
-            </div>
             < MenuNavbar
-                open={open}
-                setOpen={setOpen}
-                navbarItem={navbarItem}
+                inderbg={inderbg}
             />
         </nav>
     )

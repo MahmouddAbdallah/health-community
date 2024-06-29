@@ -1,6 +1,19 @@
 // sagas.js
 import { call, put, takeEvery, all } from 'redux-saga/effects';
-import { FETCH_ARTICLES_REQUEST, fetchArticlesSuccess, fetchArticlesFailure, fetchNotificationFailure, fetchNotificationSuccess, UPDATE_NOTIFICATION } from './actions';
+import {
+    FETCH_ARTICLES_REQUEST,
+    fetchArticlesSuccess,
+    fetchArticlesFailure,
+    fetchNotificationFailure,
+    fetchNotificationSuccess,
+    UPDATE_NOTIFICATION,
+    fetchSearchFailure,
+    fetchSearchSuccess,
+    FETCH_SEARCH_REQUEST,
+    fetchMessagesFailure,
+    fetchMessagesSuccess,
+    messagesAction
+} from './actions';
 import axios from 'axios';
 
 function* fetchArticles() {
@@ -39,10 +52,43 @@ function* watchUpdateNotification() {
     yield takeEvery(UPDATE_NOTIFICATION, updateNotification);
 }
 
+
+function* fetchSearchData(action) {
+    try {
+        const { keyword, type } = action.payload
+        const { data } = yield call(axios.get, `/api/search?keyword=${keyword}&type=${type}`)
+        console.log(data);
+        yield put(fetchSearchSuccess(data))
+    } catch (error) {
+        yield fetchSearchFailure(error?.response?.data?.message || 'There is error')
+    }
+}
+
+function* watchFetchSearchData() {
+    yield takeEvery(FETCH_SEARCH_REQUEST, fetchSearchData)
+}
+
+
+function* fetchMessagesData(action) {
+    try {
+        const { chatId } = action.payload;
+        const { data } = yield call(axios.get, `/api/message/${chatId}?fields=sender,text&sort=createdAt`)
+        yield put(fetchMessagesSuccess(data.messages))
+    } catch (error) {
+        yield fetchMessagesFailure(error)
+    }
+}
+
+function* watchFetchMessages() {
+    yield takeEvery(messagesAction.FETCH_MESSAGES_REQUEST, fetchMessagesData)
+}
+
 export default function* rootSaga() {
     yield all([
         watchFetchArticles(),
         watchFetchNotification(),
-        watchUpdateNotification()
+        watchUpdateNotification(),
+        watchFetchSearchData(),
+        watchFetchMessages()
     ]);
 }

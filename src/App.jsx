@@ -1,30 +1,45 @@
+import { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import IntroPage from './pages/IntroPage';
 import axios from 'axios'
-import SignIn from './pages/SignIn';
-import Layout from './components/Layout';
-import AppProviderContext from './context/AppContext';
 import { Toaster } from 'react-hot-toast'
-import SignUp from './pages/SignUp';
-import Home from './pages/Home';
-import Blog from './pages/Blog/Blog';
-import Article from './pages/Blog/pages/Article';
-import Doctor from './pages/Doctor/Doctor';
-import DoctorSignUp from './pages/Doctor/pages/DoctorSignUp';
-import Profile from './pages/Profile/Profile';
-import Dashboard from './pages/dashboard/Dashboard';
-import LayoutDashboard from './pages/dashboard/LayoutDashboard';
-import Appointment from './pages/dashboard/pages/Appointment';
-import Messages from './pages/dashboard/pages/Messages';
-import StoreDashBoard from './pages/dashboard/pages/Store';
-import Store from './pages/Store/Store';
+import Loading from './pages/Loading';
+import socket from './utils/socket';
+import { UseAppContext } from './context/AppContext';
+const IntroPage = lazy(() => import("./pages/IntroPage"))
+const SignIn = lazy(() => import("./pages/SignIn"))
+const Layout = lazy(() => import("./components/Layout"))
+const SignUp = lazy(() => import("./pages/SignUp"))
+const Home = lazy(() => import("./pages/Home"))
+const Blog = lazy(() => import("./pages/Blog/Blog"))
+const Article = lazy(() => import("./pages/Blog/pages/Article"))
+const Doctor = lazy(() => import("./pages/Doctor/Doctor"))
+const DoctorSignUp = lazy(() => import("./pages/Doctor/pages/DoctorSignUp"))
+const Profile = lazy(() => import("./pages/Profile/Profile"))
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"))
+const LayoutDashboard = lazy(() => import("./pages/dashboard/LayoutDashboard"))
+const Appointment = lazy(() => import("./pages/dashboard/pages/Appointment"))
+const Messages = lazy(() => import("./pages/dashboard/pages/Messages/Messages"))
+const StoreDashBoard = lazy(() => import("./pages/dashboard/pages/Store"))
+const Store = lazy(() => import("./pages/Store/Store"))
+const StoreCategory = lazy(() => import("./pages/Store/pages/Category"))
+const SearchPage = lazy(() => import("./pages/Search/SearchPage"))
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true;
 
 function App() {
+  const { user } = UseAppContext()
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+    if (user) {
+      socket.emit('add-user', user?._id)
+    }
+  }, [user])
+
   return (
-    <AppProviderContext>
+    <Suspense fallback={<Loading />} >
       <BrowserRouter>
         <Toaster
           position="bottom-center"
@@ -39,7 +54,8 @@ function App() {
             <Route path="/Profile/:id" element={<Profile />} />
             <Route path="/blog/articles/:id" element={<Article />} />
             <Route path="/store" element={<Store />} />
-
+            <Route path="/store/category/:id" element={<StoreCategory />} />
+            <Route path="/search" element={<SearchPage />} />
           </Route>
           <Route path="/dashboard" element={<LayoutDashboard />}>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -52,7 +68,7 @@ function App() {
           <Route path='/sign-in' element={<SignIn />} />
         </Routes>
       </BrowserRouter>
-    </AppProviderContext>
+    </Suspense>
   )
 }
 

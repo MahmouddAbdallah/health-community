@@ -15,6 +15,7 @@ const UserNavbar = ({ isMenu }) => {
     const userRef = useCloseOnOutsideClick(() => { setOpenUser(false) })
     const { pathname } = useLocation()
     return (
+        (user) &&
         <div>
             <div ref={userRef} className={clsx(
                 `relative min-w-[150px] flex justify-center`,
