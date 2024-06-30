@@ -7,7 +7,7 @@ const Siderbar = () => {
     const { pathname } = useLocation()
     const fetchChats = async () => {
         try {
-            const { data } = await axios.get('/api/chat');
+            const { data } = await axios.get('/api/chat?sort=updatedAt');
             setChats(data.chats)
         } catch (error) {
             console.error(error);
@@ -17,7 +17,7 @@ const Siderbar = () => {
         fetchChats()
     }, [])
     return (
-        <div className="w-72 space-y-5 pl-5 border-r pt-3">
+        <div className="w-72 space-y-5 pl-5 border-l pt-3">
             {
                 chats ? chats.map(chat => {
                     return (

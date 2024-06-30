@@ -2,14 +2,13 @@ import { useForm } from 'react-hook-form';
 // import axios from 'axios'
 import toast from 'react-hot-toast'
 import axios from 'axios';
-import { Loader } from 'lucide-react';
+import { SendHorizonalIcon } from 'lucide-react';
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { UseAppContext } from '../../../../../context/AppContext';
 import socket from '../../../../../utils/socket'
 import { messagesAction } from '../../../../../redux/actions';
 import { useDispatch } from 'react-redux';
-
 
 const InputMessage = () => {
     const { register, handleSubmit, reset } = useForm()
@@ -42,14 +41,14 @@ const InputMessage = () => {
     })
     return (
         <form onSubmit={onSubmit}>
-            <div className='flex items-center gap-3 px-2'>
+            <div className='flex items-center gap-3 border-t-2'>
                 <input
-                    {...register('message')}
+                    {...register('message', { required: true })}
                     type="text"
-                    className='w-full outline-none border border-black-black/20'
+                    className='w-full outline-none border-black-black/20 px-3 py-3'
                     placeholder="Enter your message" />
-                <button>
-                    {loading ? <Loader className={'animate-spin'} /> : "send"}
+                <button disabled={loading} className=''>
+                    <SendHorizonalIcon />
                 </button>
             </div>
         </form>

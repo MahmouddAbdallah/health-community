@@ -22,6 +22,8 @@ const Messages = lazy(() => import("./pages/dashboard/pages/Messages/Messages"))
 const StoreDashBoard = lazy(() => import("./pages/dashboard/pages/Store"))
 const Store = lazy(() => import("./pages/Store/Store"))
 const StoreCategory = lazy(() => import("./pages/Store/pages/Category"))
+const StoreProducts = lazy(() => import("./pages/Store/pages/Products"))
+const Cart = lazy(() => import("./pages/Store/pages/Cart"))
 const SearchPage = lazy(() => import("./pages/Search/SearchPage"))
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -55,6 +57,8 @@ function App() {
             <Route path="/blog/articles/:id" element={<Article />} />
             <Route path="/store" element={<Store />} />
             <Route path="/store/category/:id" element={<StoreCategory />} />
+            <Route path="/store/product/:id" element={<StoreProducts />} />
+            <Route path="/store/cart" element={<Cart />} />
             <Route path="/search" element={<SearchPage />} />
           </Route>
           <Route path="/dashboard" element={<LayoutDashboard />}>

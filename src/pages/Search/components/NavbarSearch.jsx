@@ -13,7 +13,7 @@ const NavbarSearch = () => {
                             <img className="w-14 h-14" src={LogoWithoutText} alt='' />
                         </Link>
                         <div className='flex-1 '>
-                            <Search />
+                            <Search width={'w-full'} />
                         </div>
                     </div>
                     <div className='hidden lg:block'>

@@ -7,8 +7,9 @@ import useKeyboardNav from '../hook/useKeyboardNav'
 import clsx from 'clsx'
 import useCloseOnOutsideClick from '../hook/useCloseOnOutsideClick'
 import { useForm } from 'react-hook-form'
+import PropTypes from 'prop-types'
 
-const Search = () => {
+const Search = ({ width }) => {
     const [search, setSearch] = useState(null);
     const [open, setOpen] = useState(false)
     const [keyword, setKeyword] = useState('')
@@ -58,7 +59,7 @@ const Search = () => {
                     window.location.reload()
                 }
             )} className="w-full flex justify-center " >
-            <div className="relative flex w-full">
+            <div className={`"relative flex ${width}`}>
                 <div className={clsx(
                     "relative z-20 flex justify-center items-center",
                     { 'w-full sm:w-[400px] md:w-[450px] lg:w-[550px]': pathname.includes('search') },
@@ -127,6 +128,10 @@ const Search = () => {
             </div>
         </form>
     )
+}
+
+Search.propTypes = {
+    width: PropTypes.string
 }
 
 export default Search

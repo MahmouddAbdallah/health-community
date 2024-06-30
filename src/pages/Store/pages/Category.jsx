@@ -1,28 +1,37 @@
-import { useState, useEffect, useCallback } from 'react'
 import axios from "axios";
-import { Link, useParams } from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
+import Navbar from '../../../components/Navbar'
+import Product from '../components/Product';
+import { useQuery } from '@tanstack/react-query';
 
 const Category = () => {
-    const [categories, setCategories] = useState(null)
     const { id } = useParams()
-    console.log(id);
-    const fetchCategories = useCallback(
+    const fetchCategories =
         async () => {
-            try {
-                const { data } = await axios.get(`/api/store/product/${id}/category?fields=-__v`)
-                setCategories(data)
-            } catch (error) {
-                console.error(error);
-            }
-        }, [id]
-    )
-    useEffect(() => {
-        fetchCategories()
-    }, [fetchCategories])
-    console.log(categories);
+            const { data } = await axios.get(`/api/store/product/${id}/category?fields=imgs,title,description,price`)
+            return data
+        }
+
+
+    const { data, isLoading } = useQuery({
+        queryKey: ['storeCategory', id],
+        queryFn: fetchCategories
+    })
     return (
-        <div>Category</div>
+        <div>
+            <Navbar />
+            <div className='min-h-svh pcontainer py-10'>
+                <div className='grid grid-cols-12 sm:gap-5 md:gap-10 lg:gap-5'>
+                    {
+                        !isLoading && data.products.map((product) => {
+                            return (
+                                <Product key={product._id} product={product} />
+                            )
+                        })
+                    }
+                </div>
+            </div>
+        </div>
     )
 }
 

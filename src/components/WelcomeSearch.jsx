@@ -16,7 +16,7 @@ const WelcomeSearch = () => {
                             What would you like to do next?
                         </h1>
                     </div>
-                    <Search />
+                    <Search width={'w-fit'} />
                 </div>
             </div>
         </BackGroundImg>

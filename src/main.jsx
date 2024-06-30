@@ -6,12 +6,16 @@ import { Provider } from 'react-redux'
 import store from './redux/store/store.js'
 // import Quize from './Quize.jsx'
 import AppProviderContext from "./context/AppContext"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
       <AppProviderContext>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
       </AppProviderContext>
     </Provider>
   </React.StrictMode>,

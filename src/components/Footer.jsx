@@ -86,7 +86,7 @@ const Footer = () => {
                     </div>
                 </div>
                 {items.map((item,) => (
-                    <div key={item.head} className='col-span-12 md:col-span-4 lg:col-span-2 space-y-5'>
+                    <div key={item.head} className='col-span-12 sm:col-span-4 lg:col-span-2 space-y-5'>
                         <h4 className='text-2xl font-semibold'>{item.head}</h4>
                         <ul className='space-y-3'>
                             {item.sub.map((sub) => (
