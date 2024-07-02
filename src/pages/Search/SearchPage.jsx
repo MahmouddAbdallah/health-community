@@ -25,10 +25,10 @@ const SearchPage = () => {
             <div className="py-5 space-y-5 pcontainer bg-gray-50 min-h-[calc(100svh-80px)]">
                 <h4 className='text-lg font-medium'>The Result :</h4>
                 <div>
-                    {search?.data?.article.length ? <Articles /> : ""}
-                    {search?.data?.doctor.length ? <Doctors /> : ""}
-                    {search?.data?.pharmacist.length ? <Pharmacists /> : ""}
-                    {search?.data?.user.length ? <Users /> : ""}
+                    {search?.data?.article?.length ? <Articles /> : ""}
+                    {search?.data?.doctor?.length ? <Doctors /> : ""}
+                    {search?.data?.pharmacist?.length ? <Pharmacists /> : ""}
+                    {search?.data?.user?.length ? <Users /> : ""}
                 </div>
             </div>
         </div>

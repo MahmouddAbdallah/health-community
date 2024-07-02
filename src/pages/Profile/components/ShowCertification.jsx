@@ -14,7 +14,7 @@ const ShowCertification = ({ indexImg, imgs }) => {
     }, [])
     const eleRef = useCloseOnOutsideClick(close)
     return (
-        <div className='fixed top-0 left-0 h-full w-full bg-black-black/50 flex justify-center items-center px-5'>
+        <div className='fixed top-0 left-0 h-full w-full bg-black-black/50 flex justify-center items-center px-5 z-50'>
             <div ref={eleRef} className='bg-white-White rounded-xl w-full sm:w-96 md:w-[500px] lg:w-[600px]'>
                 <img src={imgs[indexImg]} alt="" />
             </div>

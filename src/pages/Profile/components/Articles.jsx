@@ -51,8 +51,8 @@ const Articles = ({ userData }) => {
                         {
                             (articles.map((article, index) => (
                                 <div key={index} className="col-span-12 md:col-span-6 lg:col-span-4 space-y-2">
-                                    <div className='flex relative group duration-300'>
-                                        <div className='space-y-3'>
+                                    <div className='flex relative group duration-300 w-full'>
+                                        <div className='space-y-3 w-full'>
                                             <img src={article.img} alt="" className="w-full h-64 object-cover rounded-md" />
                                             <div>
                                                 <span className='block font-medium'>

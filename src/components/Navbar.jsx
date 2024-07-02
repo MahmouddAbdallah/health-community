@@ -19,7 +19,7 @@ const Navbar = ({ inderbg }) => {
             { " sticky z-50 top-0 bg-white-White": pathname.includes("community") },
             { "community": !pathname.includes("community") }
         )}>
-            <Link to={'/'}>
+            <Link to={user ? '/home' : "/"}>
                 <div>
                     {inderbg ?
                         <img className="w-[200px] md:w-[248px]" src={WhiteLogo} alt="" />

@@ -91,6 +91,7 @@ const chats = (state = { data: [] }, action) => {
 const cart = (state = { productIDs: [], count: 0 }, action) => {
     switch (action.type) {
         case cartAction.ADD_CART: {
+            console.log(state.count);
             return { ...state, count: state.count + action.payload }
         }
         case cartAction.DELETE_CART: {

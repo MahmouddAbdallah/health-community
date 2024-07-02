@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { DashboardIcon, PersonIcon } from '../components/icons'
 import { LogOutIcon } from '../components/icons'
 import useCloseOnOutsideClick from '../hook/useCloseOnOutsideClick'
@@ -9,6 +9,7 @@ import { UseAppContext } from '../context/AppContext'
 import Notification from './Notification'
 import { ShoppingCartIcon } from 'lucide-react'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 const UserNavbar = ({ isMenu }) => {
     const [openUser, setOpenUser] = useState(false);
@@ -16,6 +17,15 @@ const UserNavbar = ({ isMenu }) => {
     const userRef = useCloseOnOutsideClick(() => { setOpenUser(false) })
     const { pathname } = useLocation()
     const cartNumber = useSelector(state => state.cart.count)
+    const navigate = useNavigate()
+    const logout = async () => {
+        const { data } = await axios.get('/api/logout')
+        console.log(data);
+        navigate("/sign-in")
+        setOpenUser(false)
+        document.body.style.overflowY = 'auto'
+        window.location.reload()
+    }
     return (
         (user) &&
         <div>
@@ -97,11 +107,8 @@ const UserNavbar = ({ isMenu }) => {
                             <li className={clsx(
                                 { 'border-t': isMenu }
                             )}>
-                                <Link to={'/sign-in'} onClick={() => {
-                                    setOpenUser(false)
-                                    document.body.style.overflowY = 'auto'
-                                }}
-                                    className="">
+                                <button onClick={logout}
+                                    className=" w-full">
                                     <div className={clsx(
                                         "flex px-2 py-3 dark:hover:bg-gray-900 rounded-md",
                                         { "hover:bg-blue-200": !isMenu }
@@ -111,7 +118,7 @@ const UserNavbar = ({ isMenu }) => {
                                             <span> Log out</span>
                                         </div>
                                     </div>
-                                </Link>
+                                </button>
                             </li>
                         </ul>
                     </div>

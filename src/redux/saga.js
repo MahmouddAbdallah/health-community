@@ -24,7 +24,7 @@ import axios from 'axios';
 
 function* fetchArticles() {
     try {
-        const response = yield call(fetch, 'https://wellnease.onrender.com/api/blog/article?limit=5');
+        const response = yield call(fetch, 'https://wellnease.onrender.com/api/blog/article?limit=5&sort=createdAt');
         const data = yield response.json();
         yield put(fetchArticlesSuccess(data));
     } catch (error) {

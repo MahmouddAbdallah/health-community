@@ -10,11 +10,8 @@ import Navbar from "../components/Navbar"
 
 const IntroPage = () => {
     const { user } = UseAppContext()
-    if (user?.role == 'user') {
+    if (user) {
         return <Navigate to={'/home'} />
-    }
-    else if (user?.role == 'doctor') {
-        return <Navigate to={'/doctor'} />
     }
     else return (
         <div>

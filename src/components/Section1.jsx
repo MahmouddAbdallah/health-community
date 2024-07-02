@@ -1,18 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import doctorAvatar from '../assets/Doctoravatar.png'
+import pharmacy from '../assets/pharmacy.jpg'
+import bills from '../assets/bills.jpg'
 
 const Section1 = () => {
     const [points, setPoints] = useState(0)
     const dataSection = [
         { id: 1, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 2, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 3, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 4, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 5, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 6, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 7, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 8, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
-        { id: 9, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        { id: 2, img: bills, name: 'Drugs', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        { id: 3, img: pharmacy, name: 'Pharmacy', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        // { id: 4, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        // { id: 5, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        // { id: 6, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        // { id: 7, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        // { id: 8, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
+        // { id: 9, img: doctorAvatar, name: 'Doctors', p: ' You may be looking for a doctor with a specific set of abilities to add to your.' },
     ]
     const slider = useRef({});
 
