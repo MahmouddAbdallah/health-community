@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import BookingAppointment from './BookingAppointment';
 import { ThreeDotsIcon } from '../../../components/icons';
+import { Link } from 'react-router-dom';
 
 const HeaderProfile = ({ userData }) => {
     const { user } = UseAppContext()
@@ -45,7 +46,6 @@ const HeaderProfile = ({ userData }) => {
                 <div className='w-full grid grid-cols-12 p-5  space-y-5 md:space-y-0 md:gap-10'>
                     <div className='col-span-12 md:col-span-4'>
                         <InputImgFile imgUrl={userData?.picture} userId={userData?._id} />
-
                     </div>
                     <div className='col-span-12 md:col-span-8'>
                         <div className='h-full flex flex-col gap-3 justify-between'>
@@ -79,14 +79,10 @@ const HeaderProfile = ({ userData }) => {
                                         className='bg-blue-500 w-fit px-5 py-2 text-white-White rounded-full'>
                                         Book appointment
                                     </button>}
-                                    <button
-                                        onClick={() => {
-                                            setOpenAppointment(!openAppointment)
-                                            document.body.style.overflow = "hidden"
-                                        }}
+                                    <Link to={`/dashboard/messages?userId=${userData?._id}&role=${userData?.role}`}
                                         className='bg-black-black w-fit px-5 py-2 text-white-White rounded-full'>
                                         Message
-                                    </button>
+                                    </Link>
                                 </div>
                             }
                         </div>

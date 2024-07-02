@@ -8,6 +8,7 @@ import useCloseOnOutsideClick from "../../../hook/useCloseOnOutsideClick";
 import toast from "react-hot-toast";
 import { Spinner } from "../../../components/icons";
 import { UseAppContext } from '../../../context/AppContext'
+import { useQuery } from "@tanstack/react-query";
 const Appointment = () => {
     const [appointment, setAppointment] = useState(null);
     const [loading, setLoading] = useState(false)
@@ -16,19 +17,16 @@ const Appointment = () => {
     const [data, setData] = useState({ status: "", _id: '' })
     const { user } = UseAppContext()
 
-    const fetchAppointments = async () => {
-        try {
+    const appointments = useQuery({
+        queryKey: ['appointments'],
+        queryFn: async () => {
             const { data } = await axios.get(`/api/appointment`)
-            setAppointment(data.appointments)
-        } catch (error) {
-            console.error(error);
+            return data.appointments
         }
-    }
+    })
     useEffect(() => {
-        if (!appointment) {
-            fetchAppointments()
-        }
-    }, [appointment])
+        setAppointment(appointments.data)
+    }, [appointments])
 
 
     const updateStatus = async () => {

@@ -3,12 +3,18 @@ import LogoWithoutText from '../../../assets/LogoWithoutText.svg'
 import { Link } from 'react-router-dom'
 import useCloseOnOutsideClick from '../../../hook/useCloseOnOutsideClick'
 import { useState } from 'react'
+import { UseAppContext } from '../../../context/AppContext'
 
 const Sidebar = ({ open, setOpen }) => {
     const [openHref, serOpenHref] = useState('')
+    const { user } = UseAppContext()
     const items = [
         {
-            name: 'Appointment',
+            name: 'dashboard',
+            href: '/dashboard'
+        },
+        {
+            name: user?.role != 'pharmacist' && 'Appointment',
             href: '/dashboard/appointment',
             // subs: [
             //     {
@@ -30,7 +36,7 @@ const Sidebar = ({ open, setOpen }) => {
             href: '/dashboard/messages'
         },
         {
-            name: 'Store',
+            name: user?.role == 'pharmacist' && 'Store',
             href: '/dashboard/store/create',
         },
     ]
@@ -44,6 +50,7 @@ const Sidebar = ({ open, setOpen }) => {
                 <div>
                     {items.map(item => {
                         return (
+                            item.name &&
                             <div key={item.name} className='overflow-hidden duration-500'>
                                 <div className='bg-white-White z-50 relative '>
                                     <Link

@@ -1,7 +1,10 @@
+import AddWater from "./components/AddWater"
 
 const Dashboard = () => {
     return (
-        <div>Dashboard</div>
+        <div className="pcontainer py-10">
+            <AddWater />
+        </div>
     )
 }
 

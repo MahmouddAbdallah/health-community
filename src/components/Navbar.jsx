@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { UseAppContext } from "../context/AppContext"
 import UserNavbar from "./UserNavbar"
 import Logo from '../assets/Logo.svg'
@@ -9,13 +9,15 @@ import MenuNavbar from './MenuNavbar'
 
 const Navbar = ({ inderbg }) => {
     const { user } = UseAppContext()
-    const navbarItem = [{ name: 'Home', href: '/home' }, { name: 'Shopping', href: '/store' }, { name: 'Doctor', href: '/doctor' }, { name: 'Blog', href: '/blog' }, { name: 'Contact', href: '/contact' }]
-
+    const navbarItem = [{ name: 'Home', href: '/home' }, { name: 'Shopping', href: '/store' }, { name: 'Doctor', href: '/doctor' }, { name: 'Blog', href: '/blog' }, { name: 'Community', href: '/community' }]
+    const { pathname } = useLocation()
     return (
         <nav className={clsx(
-            'flex justify-between items-center py-5 top-0 md:static',
+            'flex justify-between items-center py-5 top-0 ',
             { "border-b": !inderbg },
             { "pcontainer": !inderbg },
+            { " sticky z-50 top-0 bg-white-White": pathname.includes("community") },
+            { "community": !pathname.includes("community") }
         )}>
             <Link to={'/'}>
                 <div>

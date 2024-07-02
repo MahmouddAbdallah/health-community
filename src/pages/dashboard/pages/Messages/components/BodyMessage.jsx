@@ -4,18 +4,23 @@ import { UseAppContext } from '../../../../../context/AppContext';
 import clsx from "clsx";
 import socket from '../../../../../utils/socket'
 import { useDispatch, useSelector } from "react-redux";
-import { messagesAction } from "../../../../../redux/actions";
+import { chatsAction, messagesAction } from "../../../../../redux/actions";
+import UserInfo from "./UserInfo";
 
 const BodyMessage = () => {
     const [search] = useSearchParams();
     const chatId = search.get('chatId');
+    const userId = search.get('userId');
     const { user } = UseAppContext();
     const dispatch = useDispatch();
     const chatRef = useRef(null);
 
     useEffect(() => {
         const handleReceivedMessage = (data) => {
-            dispatch({ type: messagesAction.UPDATE_MESSAGES, payload: data });
+            if (chatId == data.message.chat) {
+                dispatch({ type: messagesAction.UPDATE_MESSAGES, payload: data.message });
+            }
+            dispatch({ type: chatsAction.UPDATE_CHATS, payload: data.message.chat })
         };
         socket.on('msg-receive', handleReceivedMessage);
         return () => {
@@ -37,6 +42,7 @@ const BodyMessage = () => {
 
     return (
         <div className="lg:max-h-[calc(100svh-48px)] overflow-auto" ref={chatRef}>
+            <UserInfo userId={userId} />
             <div className="px-5 py-2">
                 {messages.data && (
                     <div className="space-y-2">

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom'
 import { FETCH_SEARCH_REQUEST } from '../../redux/actions';
 import Doctors from './components/Doctors';
+import Users from './components/Users';
+import Pharmacists from './components/Pharmacists';
 const SearchPage = () => {
 
     const dispatch = useDispatch();
@@ -23,8 +25,10 @@ const SearchPage = () => {
             <div className="py-5 space-y-5 pcontainer bg-gray-50 min-h-[calc(100svh-80px)]">
                 <h4 className='text-lg font-medium'>The Result :</h4>
                 <div>
-                    {search?.data?.article && <Articles />}
-                    {search?.data?.doctor && <Doctors />}
+                    {search?.data?.article.length ? <Articles /> : ""}
+                    {search?.data?.doctor.length ? <Doctors /> : ""}
+                    {search?.data?.pharmacist.length ? <Pharmacists /> : ""}
+                    {search?.data?.user.length ? <Users /> : ""}
                 </div>
             </div>
         </div>

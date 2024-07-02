@@ -8,11 +8,12 @@ import { MenuIcon } from "../components/icons"
 import clsx from 'clsx'
 import Notification from './Notification'
 import { ShoppingCartIcon } from 'lucide-react'
+import { useSelector } from "react-redux"
 
 
 const MenuNavbar = ({ inderbg }) => {
     const [open, setOpen] = useState(false);
-    const navbarItem = [{ name: 'Home', href: '/home' }, { name: 'Shopping', href: '/store' }, { name: 'Doctor', href: '/doctor' }, { name: 'Blog', href: '/blog' }, { name: 'Contact', href: '/contact' }]
+    const navbarItem = [{ name: 'Home', href: '/home' }, { name: 'Shopping', href: '/store' }, { name: 'Doctor', href: '/doctor' }, { name: 'Blog', href: '/blog' }, { name: 'Community', href: '/community' }]
 
     const { pathname } = useLocation()
     const close = () => {
@@ -20,6 +21,7 @@ const MenuNavbar = ({ inderbg }) => {
         document.body.style.overflowY = 'auto'
     }
     const { user } = UseAppContext()
+    const cartNumber = useSelector(state => state.cart.productIDs.length)
 
     return (
         <div className="md:hidden">
@@ -31,8 +33,11 @@ const MenuNavbar = ({ inderbg }) => {
                     <Notification />
                     {
                         pathname.includes('store') &&
-                        <Link to={'/store/cart'}>
+                        <Link className='flex relative' to={'/store/cart'}>
                             <ShoppingCartIcon />
+                            {cartNumber ? <div className=' absolute -right-2 -top-1 flex justify-center items-center text-xs bg-blue-500 text-white-White rounded-full w-4 h-4'>
+                                {cartNumber}
+                            </div> : ""}
                         </Link>
                     }
                 </div>

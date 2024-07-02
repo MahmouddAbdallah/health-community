@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Stars from '../../../components/Stars';
 import Pharmacist from './Pharmacist';
 import ProductsCategory from '../components/ProductsCategory';
+import AddToCart from '../components/AddToCart';
 
 
 const Products = () => {
@@ -35,10 +36,10 @@ const Products = () => {
                 {
                     product &&
                     <div>
-                        <div className='grid grid-cols-12 lg:gap-10 border-b-2 pb-10'>
+                        <div className='grid grid-cols-12 space-y-5 md:space-y-0 lg:gap-10 border-b-2 pb-10'>
                             <div className='col-span-12 lg:col-span-6 '>
-                                <div className='flex gap-5 sticky z-50 top-0'>
-                                    <div className='flex flex-col'>
+                                <div className='flex flex-col-reverse md:flex-row gap-5 sticky z-50 top-0'>
+                                    <div className='flex flex-row md:flex-col gap-3'>
                                         {
                                             product.imgs.map((img, i) =>
                                                 <button onMouseEnter={
@@ -49,7 +50,7 @@ const Products = () => {
                                             )
                                         }
                                     </div>
-                                    <div className='w-full lg:h-96 bg-black-black/5'>
+                                    <div className='w-full h-96 bg-black-black/5'>
                                         <img
                                             className='w-full h-full object-contain'
                                             src={product.imgs[imgIndex]}
@@ -102,8 +103,8 @@ const Products = () => {
                                     </ul>
                                 </div>
                                 <div className='flex w-full gap-3 mt-5'>
-                                    <button className='w-full py-2 rounded-full bg-blue-500 text-white-White'>Add To Cart</button>
-                                    <button className='w-full py-2 rounded-full bg-black-black text-white-White'>Save</button>
+                                    <AddToCart productId={product._id} productPrice={product.price} />
+                                    <button className='w-full py-2 rounded-full bg-black-black text-white-White'>Buy now</button>
                                 </div>
                             </div>
                         </div>

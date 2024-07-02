@@ -8,12 +8,14 @@ import clsx from 'clsx'
 import { UseAppContext } from '../context/AppContext'
 import Notification from './Notification'
 import { ShoppingCartIcon } from 'lucide-react'
+import { useSelector } from 'react-redux'
 
 const UserNavbar = ({ isMenu }) => {
     const [openUser, setOpenUser] = useState(false);
     const { user } = UseAppContext()
     const userRef = useCloseOnOutsideClick(() => { setOpenUser(false) })
     const { pathname } = useLocation()
+    const cartNumber = useSelector(state => state.cart.count)
     return (
         (user) &&
         <div>
@@ -39,8 +41,11 @@ const UserNavbar = ({ isMenu }) => {
                         <Notification />
                         {
                             pathname.includes('store') &&
-                            <Link to={'/store/cart'}>
+                            <Link className='flex relative' to={'/store/cart'}>
                                 <ShoppingCartIcon />
+                                {cartNumber ? <div className=' absolute -right-2 -top-1 flex justify-center items-center text-xs bg-blue-500 text-white-White rounded-full w-4 h-4'>
+                                    {cartNumber}
+                                </div> : ""}
                             </Link>
                         }
                     </div>

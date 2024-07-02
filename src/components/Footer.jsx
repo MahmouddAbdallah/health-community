@@ -65,7 +65,7 @@ const Footer = () => {
         },
     ]
     return (
-        <footer className="bg-white-White pcontainer py-10">
+        <footer className="bg-white-White pcontainer py-10 border-t">
             <div className="grid grid-cols-12 gap-0 lg:gap-10 space-y-10 lg:space-y-0">
                 <div className="col-span-12 md:col-span-6 lg:col-span-4 space-y-5">
                     <img className="w-[200px] md:w-[248px]" src={Logo} alt="" />

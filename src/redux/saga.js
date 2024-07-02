@@ -12,7 +12,13 @@ import {
     FETCH_SEARCH_REQUEST,
     fetchMessagesFailure,
     fetchMessagesSuccess,
-    messagesAction
+    messagesAction,
+    fetchCartsFailure,
+    fetchCartsSuccess,
+    cartAction,
+    fetchChatsSuccess,
+    fetchChatsFailure,
+    chatsAction
 } from './actions';
 import axios from 'axios';
 
@@ -37,7 +43,6 @@ function* fetchNotification(action) {
         yield put(fetchNotificationSuccess(data.notification));
     } catch (error) {
         yield put(fetchNotificationFailure(error?.response?.data?.message || 'Failed to fetch notifications'));
-
     }
 }
 
@@ -57,7 +62,6 @@ function* fetchSearchData(action) {
     try {
         const { keyword, type } = action.payload
         const { data } = yield call(axios.get, `/api/search?keyword=${keyword}&type=${type}`)
-        console.log(data);
         yield put(fetchSearchSuccess(data))
     } catch (error) {
         yield fetchSearchFailure(error?.response?.data?.message || 'There is error')
@@ -83,12 +87,42 @@ function* watchFetchMessages() {
     yield takeEvery(messagesAction.FETCH_MESSAGES_REQUEST, fetchMessagesData)
 }
 
+
+function* fetchChatsData() {
+    try {
+        const { data } = yield call(axios.get, `/api/chat?sort=-updatedAt`)
+        yield put(fetchChatsSuccess(data.chats))
+    } catch (error) {
+        yield fetchChatsFailure(error)
+    }
+}
+
+function* watchFetchChats() {
+    yield takeEvery(chatsAction.FETCH_MESSAGES_REQUEST, fetchChatsData)
+}
+
+function* fetchCarts({ fields }) {
+    try {
+        const { data } = yield axios.get(`/api/store/cart?fields=${fields}`)
+        yield put(fetchCartsSuccess(data.carts));
+    } catch (error) {
+        yield put(fetchCartsFailure(error))
+    }
+}
+
+function* watchFetchCarts() {
+    yield takeEvery(cartAction.FETCH_CARTS_REQUEST, fetchCarts)
+}
+
+
 export default function* rootSaga() {
     yield all([
         watchFetchArticles(),
         watchFetchNotification(),
         watchUpdateNotification(),
         watchFetchSearchData(),
-        watchFetchMessages()
+        watchFetchMessages(),
+        watchFetchCarts(),
+        watchFetchChats()
     ]);
 }

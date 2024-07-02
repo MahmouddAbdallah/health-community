@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { UseAppContext } from '../../../../../context/AppContext';
 import socket from '../../../../../utils/socket'
-import { messagesAction } from '../../../../../redux/actions';
+import { chatsAction, messagesAction } from '../../../../../redux/actions';
 import { useDispatch } from 'react-redux';
 
 const InputMessage = () => {
@@ -25,12 +25,24 @@ const InputMessage = () => {
             const { data } = await axios.post(`/api/message/${userId}/${role}`, {
                 text: formData.message
             })
-            socket.emit('send-msg', {
-                senderId: user._id,
-                receiverId: userId,
-                message: data.message
-            })
+            console.log(data);
+            if (data.chat) {
+                socket.emit('send-msg', {
+                    senderId: user._id,
+                    receiverId: userId,
+                    message: data.message,
+                    chat: data.chat
+                })
+            } else {
+                socket.emit('send-msg', {
+                    senderId: user._id,
+                    receiverId: userId,
+                    message: data.message,
+                })
+            }
             dispatch({ type: messagesAction.UPDATE_MESSAGES, payload: data.message })
+            dispatch({ type: chatsAction.UPDATE_CHATS, payload: data.message.chat })
+
             reset()
             setLoading(false)
         } catch (error) {

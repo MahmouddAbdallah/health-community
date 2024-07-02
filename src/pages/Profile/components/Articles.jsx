@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types'
 import { DeleteIcon } from '../../../components/icons'
 import { useState } from 'react'
@@ -5,7 +6,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useCallback } from 'react';
 import { sliceText } from '../../../utils/sliceText';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import DeleteArticle from '../../../components/DeleteArticle';
 import { UseAppContext } from '../../../context/AppContext';
 import { EditIcon, PlusIcon } from 'lucide-react';
@@ -15,6 +16,9 @@ const Articles = ({ userData }) => {
     const [openDele, setOpenDele] = useState(false);
     const [openAdd, setOpenAdd] = useState(false);
     const { user } = UseAppContext();
+    const [_, setSearchParams] = useSearchParams()
+
+
     const fetchArticles = useCallback(
         async () => {
             try {
@@ -63,9 +67,12 @@ const Articles = ({ userData }) => {
                                             user?._id == userData?._id ?
                                                 <div className='absolute w-full h-full bg-black-black rounded-md p-2 hidden group-hover:flex justify-center items-center'>
                                                     <button className="flex gap-2">
-                                                        <Link className=''>
+                                                        <button onClick={() => {
+                                                            setOpenAdd(true)
+                                                            setSearchParams(`articleId=${article._id}`)
+                                                        }} className=''>
                                                             <EditIcon className='w-8 h-8 stroke-white-White hover:stroke-blue-500 duration-150' />
-                                                        </Link>
+                                                        </button>
                                                         <button
                                                             onClick={() => {
                                                                 setOpenDele(true)

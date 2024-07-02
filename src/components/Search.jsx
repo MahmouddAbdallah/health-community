@@ -9,7 +9,7 @@ import useCloseOnOutsideClick from '../hook/useCloseOnOutsideClick'
 import { useForm } from 'react-hook-form'
 import PropTypes from 'prop-types'
 
-const Search = ({ width }) => {
+const Search = ({ width, placeholder, type }) => {
     const [search, setSearch] = useState(null);
     const [open, setOpen] = useState(false)
     const [keyword, setKeyword] = useState('')
@@ -25,7 +25,7 @@ const Search = ({ width }) => {
             try {
                 if (keyword) {
                     setLoading(true)
-                    const { data } = await axios.get(`/api/search-keyword?keyword=${keyword}&fields=keyword,type,-_id&limit=5`)
+                    const { data } = await axios.get(`/api/search-keyword?keyword=${keyword}&fields=keyword,type,-_id&limit=3`)
                     setSearch(data.search)
                     setOpen(true)
                     setLoading(false)
@@ -55,7 +55,7 @@ const Search = ({ width }) => {
             ref={searchRef}
             onSubmit={handleSubmit(
                 (data) => {
-                    navigate(`/search?keyword=${data.keyword}&type=default`)
+                    navigate(`/search?keyword=${data.keyword}&type=${type || 'default'}`)
                     window.location.reload()
                 }
             )} className="w-full flex justify-center " >
@@ -76,7 +76,7 @@ const Search = ({ width }) => {
                             }
                         )}
                         type="text"
-                        placeholder="Search for doctors, or anything?"
+                        placeholder={placeholder || "Search for doctors, or anything?"}
                         className="w-full border focus:border-blue-500 border-black-black/30 py-3 rounded-full pl-8 pr-2 outline-none peer"
                     />
                     <SearchIcon className={"absolute left-2 fill-black-black/50 w-5 h-5 peer-focus:fill-blue-500"} />
@@ -90,48 +90,50 @@ const Search = ({ width }) => {
                             className={"absolute right-2 size-4 cursor-pointer"}
                         />
                     }
-                </div>
-                {
-                    open &&
-                    <div className="w-full absolute top-5 bg-white-White pt-10 pb-3 rounded-b-xl rounded-t-md border">
-                        {search?.map((item, index) => {
-                            const isFocused = index === foucsIndex;
-                            return (
-                                <Link
-                                    key={item._id}
-                                    onClick={(e) => {
-                                        e.preventDefault()
-                                        setFocusedIndex(-1)
-                                        setOpen(false)
-                                        navigate(`/search?keyword=${item.keyword}&type=${item.type}`);
-                                    }}
-                                    className={clsx(
-                                        "block",
-                                        { 'border-blue-500 border': isFocused }
-                                    )}
-                                    to={`/search?keyword=${item.keyword}&type=${item.type}`}
-                                >
-                                    <div className="flex gap-3 py-3 px-3">
-                                        <SearchIcon className={'size-5'} />
-                                        <div>
-                                            <span>
-                                                {item.keyword}
-                                            </span>
+                    {
+                        open &&
+                        <div className="w-full absolute -z-20 top-5 bg-white-White pt-10 pb-3 rounded-b-xl rounded-t-md border">
+                            {search?.map((item, index) => {
+                                const isFocused = index === foucsIndex;
+                                return (
+                                    <Link
+                                        key={item._id}
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            setFocusedIndex(-1)
+                                            setOpen(false)
+                                            navigate(`/search?keyword=${item.keyword}&type=${item.type}`);
+                                        }}
+                                        className={clsx(
+                                            "block",
+                                            { 'border-blue-500 border': isFocused }
+                                        )}
+                                        to={`/search?keyword=${item.keyword}&type=${item.type}`}
+                                    >
+                                        <div className="flex gap-3 py-3 px-3">
+                                            <SearchIcon className={'size-5'} />
+                                            <div>
+                                                <span>
+                                                    {item.keyword}
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            )
-                        }
-                        )}
-                    </div>
-                }
+                                    </Link>
+                                )
+                            }
+                            )}
+                        </div>
+                    }
+                </div>
             </div>
         </form>
     )
 }
 
 Search.propTypes = {
-    width: PropTypes.string
+    width: PropTypes.string,
+    placeholder: PropTypes.string,
+    type: PropTypes.string
 }
 
 export default Search
