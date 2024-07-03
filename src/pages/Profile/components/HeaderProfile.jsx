@@ -8,6 +8,7 @@ import axios from 'axios';
 import BookingAppointment from './BookingAppointment';
 import { ThreeDotsIcon } from '../../../components/icons';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 const HeaderProfile = ({ userData }) => {
     const { user } = UseAppContext()
@@ -32,13 +33,33 @@ const HeaderProfile = ({ userData }) => {
             fetchBioOfUser()
         }
     }, [bio, fetchBioOfUser])
+
+    const { data } = useQuery({
+        queryKey: ['followerNumbers'],
+        queryFn: async () => {
+            const { data } = await axios.get(`/api/follow?userId=${userData?._id}`)
+            return data.followNumber
+        }
+    })
+    const [count, setCount] = useState(0)
+    useEffect(() => {
+        setCount(data)
+    }, [data])
+    const addFollow = async () => {
+        try {
+            const { data } = await axios.post("/api/follow", { followerId: userData?._id, followerType: userData.role })
+            setCount(data.follow ? count + 1 : count - 1)
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className='flex flex-col items-center px-5'>
             <div className='w-full md:w-[768px] lg:w-[900px] xl:w-[1000px] rounded-lg border-2 mt-5 md:mt-10'>
                 <div className="p-3 space-x-2">
                     <div className='flex items-center justify-between'>
-                        <p className='font-medium'>100 Following</p>
-                        <button className='font-medium text-blue-500'>Follow</button>
+                        <p className='font-medium'>{count} Following</p>
+                        <button onClick={addFollow} className='font-medium text-blue-500'>Follow</button>
                     </div>
                 </div>
             </div>
